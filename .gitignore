@@ -3,3 +3,13 @@ node_modules/*
 node_modules/
 # ignore all files in the node_modules directory
 
+node_modules/.vite/deps/yjs.js
+node_modules/.vite/deps/chunk-BHEBX6A3.js
+node_modules/.vite/deps/@y-sweet_client.js
+node_modules/.vite/deps/_metadata.json
+node_modules/.vite/deps/_metadata.json
+node_modules/.vite/deps/@y-sweet_client.js
+node_modules/.vite/deps/@y-sweet_client.js.map
+node_modules/.vite/deps/chunk-BHEBX6A3.js
+node_modules/.vite/deps/chunk-BHEBX6A3.js.map
+node_modules/.vite/deps/yjs.js

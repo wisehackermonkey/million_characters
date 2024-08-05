@@ -2,6 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './style.css'
 // import npm bootstrap
 import * as Y from 'yjs'
+import * as awarenessProtocol from 'y-protocols/awareness.js'
+
 import { createYjsProvider } from '@y-sweet/client'
 // At the component you want to use confetti
 import confetti  from 'canvas-confetti';
@@ -45,7 +47,9 @@ async function main() {
   const doc = new Y.Doc()
   createYjsProvider(doc, clientToken, { disableBc: true })
    // const text = doc.getText("text")
-  
+  //let us know how many people are connected to the website at one time
+  var awareness = new awarenessProtocol.Awareness(doc)
+
   const text = doc.getText("demo")
  
   //disable delete key for textarea
@@ -214,6 +218,7 @@ async function main() {
 //create a confetti animation using a library like confetti-js
 function playConfetti() {
   //create a confetti animation
+  // https://www.kirilv.com/canvas-confetti/ for how to mess with the confetti config
   var count = 200;
   var defaults = {
     origin: { y: 0.7 }
