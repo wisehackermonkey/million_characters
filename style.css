@@ -1,3 +1,13 @@
+/* Change the color of selected text */
+/* ::selection {
+  background: rgb(255, 55, 0);  
+  color: #fff;       
+} */
+
+::selection {
+  background: rgb(0, 255, 0); /* Background color of the selection on hover */
+}
+
 body {
   font-family: sans-serif;
 }
