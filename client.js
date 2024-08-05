@@ -1,19 +1,35 @@
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './style.css'
 // import npm bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css'
 import * as Y from 'yjs'
 import { createYjsProvider } from '@y-sweet/client'
+// At the component you want to use confetti
+import confetti  from 'canvas-confetti';
 
 const QUERY_PARAM = 'doc'
+const submit_button = document.querySelector('button[name="submit"]')
+const textarea = document.querySelector('textarea[name="sharededitor"]')
+const replace_text = document.querySelector('textarea[name="replacetext"]')
+const replace_text_button = document.querySelector('button[name="replacetextbutton"]')
+const current_char = document.querySelector('input[name="char"]')
+
+const DEFAULT_DOCUMENT = 'demo'
+const DEFAULT_TIMEOUT = 3/*seconds*/ *1000;//seconds
+
+// on page load run canvas-confetti
 
 
 async function main() {
   // First, fetch a client token that can access the docId in the URL.
   // Or, if the URL does not contain a docId, get a client token for a new doc.
   const url = new URL(`http://localhost:9090/client-token`)
-  const searchParams = new URLSearchParams(window.location.search)
+  var searchParams = new URLSearchParams(window.location.search)
+  if (searchParams.size === 0){
+    var searchParams = new URLSearchParams(DEFAULT_DOCUMENT)
+
+  }
   const docId = searchParams.get(QUERY_PARAM)
-  if (docId) url.searchParams.set(QUERY_PARAM, docId)
+  if (docId) url.searchParams.set(QUERY_PARAM, DEFAULT_DOCUMENT)
   const res = await fetch(url.toString())
   const clientToken = await res.json()
 
@@ -21,30 +37,36 @@ async function main() {
   // Update the URL to include the docId if it was not already present.
   if (!docId) {
     const url = new URL(window.location.href)
-    url.searchParams.set(QUERY_PARAM, clientToken.doc)
+    url.searchParams.set(QUERY_PARAM, DEFAULT_DOCUMENT)
     window.history.replaceState({}, '', url.toString())
   }
 
   // Create a Yjs document and connect it to the Y-Sweet server.
   const doc = new Y.Doc()
   createYjsProvider(doc, clientToken, { disableBc: true })
-  // const sharedColorMap = doc.getMap('colorgrid')
-  const text = doc.getText("text")
-
-
+   // const text = doc.getText("text")
+  
+  const text = doc.getText("demo")
+ 
+  //disable delete key for textarea
+  textarea.addEventListener('keydown', (e) => {
+    if (e.key === 'Backspace') {
+      //create pop tooltip for textarea "sorry backspace is deactivated"
+      insertChar(text, e.target.selectionStart, ' ')
+      disableInput(textarea, DEFAULT_TIMEOUT)
+      e.preventDefault()
+    }
+  })
 
   text.observe((yEvent) => {
-    let s = text.toString()
-    document.querySelector('textarea[name="sharededitor"]').value = s
-
+    textarea.value = text.toString()
   })
 
   // <textarea name="sharededitor" id="" cols="30" rows="10"></textarea>
   // <button type="button"  onclick="setText()">Submit</button>
   // for button onclick add event listener that calls text.set('text', textarea.value)
   //get text from text area sharededitor
-  let submit_button = document.querySelector('button[name="submit"]')
-
+  
 
   submit_button.addEventListener('click', () => {
     let currentChar = document.querySelector('input[name="char"]')
@@ -54,11 +76,12 @@ async function main() {
       return
     }
     insertChar(text, parseInt(charIndex.value), currentChar.value)
-
+    disableInput(submit_button, DEFAULT_TIMEOUT)
+    disableInput(textarea, DEFAULT_TIMEOUT)
+    disableButton(submit_button, DEFAULT_TIMEOUT)
   })
   //write a function that adds event listener to textarea[ name="sharededitor" ]
   //colors the textarea character at index with color red
-  let textarea = document.querySelector('textarea[name="sharededitor"]')
   textarea.addEventListener('click', (e) => {
     let index = e.target.selectionStart
     let char = text.toString().charAt(index)
@@ -67,7 +90,6 @@ async function main() {
     let charIndex = document.querySelector('input[name="index_insert"]')
     currentChar.value = char
     charIndex.value = index
-
     return { index, char }
   })
 
@@ -92,24 +114,53 @@ async function main() {
       const index = e.target.selectionStart
       const char = e.key
       insertChar(text, index, char)
+      
+
     }
     // set cursor location to index
-    disableInput(3000);
+    disableInput(textarea,3000);
 
   })
 
+  replace_text_button.addEventListener('click', () => {
+    text.delete(0, text.toString().length)
+    text.insert(0, replace_text.value)
+  })
 
-  function disableInput(time) {
+
+  function disableInput(element, time) {
     //change mouse cursor to waiting cursor
-    textarea.style.cursor = 'wait'
-    //disable textarea
-    textarea.disabled = true
+    element.style.cursor = 'wait'
+    //disable element
+    element.disabled = true
     //change mouse cursor back to default cursor
     setTimeout(() => {
-      textarea.style.cursor = 'default'
-      textarea.disabled = false
+      element.style.cursor = 'default'
+      element.disabled = false
 
     }, 2000)
+  }
+  let counter = 0;
+  //write a function that adds a timer's text to the button format: "Submit wait {} seconds"
+  function disableButton(element, time) {
+    element.disabled = true
+    counter = 0;
+    counter = time;
+    element.innerText = `Confirm`
+    setInterval(() => {
+
+      if (counter > 0){
+        counter -= 1000
+      }
+      element.innerText = `Confirm wait ${counter/1000} seconds`
+    }
+      , 1000)
+
+    // element.innerText = `Confirm wait ${time} seconds`
+    setTimeout(() => {
+      element.disabled = false
+      element.innerText = 'Confirm'
+    }, time)
   }
 
   //write a function that adds event listener to textarea[ name="sharededitor" ]
@@ -133,10 +184,82 @@ async function main() {
 
   }
   )
+
+  // <button class="btn btn-secondary btn-sm" name="insert_space" type="button">Insert Space</button>
+  // <button class="btn btn-secondary btn-sm" name="insert_return" type="button">Insert Return</button>
+   //add event listener that inserts space at cursor location using insertChar function
+  document.querySelector('button[name="insert_space"]').addEventListener('click', () => {
+    let index = textarea.selectionStart
+    text.insert(index, " ")
+
+    disableInput(document.querySelector('button[name="insert_space"]'), DEFAULT_TIMEOUT)
+  })
+
+  //add event listener to current_char where it selects all text in input
+  current_char.addEventListener('click', (e) => {
+    e.target.select()
+  })
+  //add event listener for current_char on enter key it inserts the value of current_char at cursor location
+  current_char.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      let index = textarea.selectionStart
+      text.insert(index, current_char.value)
+
+      disableInput(current_char, DEFAULT_TIMEOUT)
+      disableInput(textarea, DEFAULT_TIMEOUT)
+    }
+  })
 }
+
+//create a confetti animation using a library like confetti-js
+function playConfetti() {
+  //create a confetti animation
+  var count = 200;
+  var defaults = {
+    origin: { y: 0.7 }
+  };
+  
+  function fire(particleRatio, opts) {
+    confetti({
+      ...defaults,
+      ...opts,
+      particleCount: Math.floor(count * particleRatio)
+    });
+  }
+  
+  fire(0.25, {
+    spread: 26,
+    startVelocity: 55,
+  });
+  fire(0.2, {
+    spread: 60,
+  });
+  fire(0.35, {
+    spread: 100,
+    decay: 0.91,
+    scalar: 0.8
+  });
+  fire(0.1, {
+    spread: 120,
+    startVelocity: 25,
+    decay: 0.92,
+    scalar: 1.2
+  });
+  fire(0.1, {
+    spread: 120,
+    startVelocity: 45,
+  });
+  
+}
+
+
 function insertChar(yDoc, offset, char) {
+  playConfetti()
+
+  //add confetty animation everytime this function is called
   if (yDoc.toString().length === 0) {
     console.log('yDoc is empty')
+    yDoc.insert(offset, 1)
     return
   }
   yDoc.insert(offset, char)

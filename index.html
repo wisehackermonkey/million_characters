@@ -1,41 +1,78 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Y-Sweet VanillaJS Demo</title>
-    <script>
-      function toggleVisibility(){
-   //turns off on visablit for div #showadvanced
-    let showAdvanced = document.querySelector('#showadvanced')
-    showAdvanced.style.display = showAdvanced.style.display === 'none' ? 'block' : 'none'
-  }
-    </script>
-    <script type="module" src="/client.js"></script>
 
-  </head>
-  <body>
-    <div class="container">
-      <h1>One Million Character Book</h1>
-      <p>
-        Lets write a book together. Each character you type will be saved.
-        The final book will be published to amazon!
-        Lets make some history!
-      </p>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <main></main>
-      <textarea name="sharededitor" id="" cols="30" rows="10"></textarea>
-      <div>
-        <button onclick="toggleVisibility()" class="btn btn-primary">Show Advanced</button>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="confetti.min.js"></script>
+  <title>One Million Character Book</title>
+  <script>
+    function toggleVisibility() {
+      //turns off on visablit for div #showadvanced
+      let showAdvanced = document.querySelector('#showadvanced')
+      showAdvanced.style.display = showAdvanced.style.display === 'none' ? 'block' : 'none'
+    }
+  </script>
+  <script type="module" src="/client.js"></script>
+
+</head>
+
+<body id="confetti">
+  <div class="container text-center">
+    <h1>One Million Character Book</h1>
+    <p>
+      Lets write a book together. <br>
+      Each character you type will be saved.<br>
+      The final book will be published to amazon!<br>
+      Lets make some history!
+    </p>
+    <div class="container" style="text-align: center;">
+      
+    </div>
+      <textarea class="form-control" name="sharededitor" id="" cols="30" rows="10" placeholder="...loading..."></textarea>
+      <br>
+      <div class="form-group text-center  mx-auto ">
+        <input class="form-control text-center" type="text" name="char" id="demo"  maxlength="1" style="font-size: 60px; width: 3ch; margin: 0 auto;">
+        <p class="paragraph"> </p>
+
+
+        <label class="label" for="char">Current Selected Character:</label>
+
+
+
+        <p class="paragraph"> </p>
+
+
+        <button class='btn btn-primary btn-lg' name="submit" type="button">Confirm</button>
+        <p class="paragraph"> </p>
+
+
       </div>
+
       <div id="showadvanced" style="display: none;">
-        <div class="form-group">
-      <input class="form-control" type="text" name="char" id="" maxlength="1">
-      <input class="form-control" type="number" name="index_insert" value="0" style="width: 12ch;">
-      <button class='btn btn-primary' name="submit" type="button">Set Character</button>
+        <div>
+          <label for="index_insert" class="label">Offset from beginning (starting with 0)
+        </div>
+        <input class="form-control" type="number" name="index_insert" value="-1" style="width: 12ch;">
+        <div>
+          <button class="btn btn-secondary btn-sm" name="insert_space" type="button">Insert Space</button>
+          <button class="btn btn-secondary btn-sm" name="insert_return" type="button">Insert Return</button>
+        </div>
+        <textarea name="replacetext" id="" cols="30" rows="10"></textarea>
+        <button class='btn btn-primary btn-lg' name="replacetextbutton" type="button">Replace Text</button>
+      </div>
+      <div>
+        <button onclick="toggleVisibility()" class="btn btn-primary btn-sm">Show Advanced</button>
+      </div>
     </div>
-    </div>
-    </div>
-  </body>
+  </div>
+</body>
+
 </html>
