@@ -55,12 +55,10 @@ a step backwards
 - popup when send is pressed and timer is not 0 minutes say "Please wait until you can add you next chacter"
 - make count down time really big
 - if the chacter set
-- add a reset button : allow reset if send is not clicked
-- 
+- add a reset button : allow reset if send is not clicked 
 
 - ![alt text](img/image-6.png)
 - 'confirm, reset, send (size huge)'
--
 
 ![alt text](img/image-7.png)
 - changed wait timer to 10 seconds

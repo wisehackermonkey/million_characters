@@ -1,10 +1,7 @@
 import './style.css'
 import * as Y from 'yjs'
 import { createYjsProvider } from '@y-sweet/client'
- import { text } from 'express'
 
-const COLORS = ['#500724', '#831843', '#9d174d', '#be185d', '#db2777', '#f472b6', '#f9a8d4', null]
-const GRID_SIZE = 10
 const QUERY_PARAM = 'doc'
 
 async function main() {
@@ -48,13 +45,21 @@ async function main() {
   submit_button.addEventListener('click', () => {
     let currentChar = document.querySelector('input[name="char"]')
     let charIndex = document.querySelector('input[name="index_insert"]')
+    if(text.toString().length === 0 && currentChar.value.length === 1) {
+      text.insert(0, currentChar.value)
+      return
+    }
     insertChar(text,parseInt(charIndex.value), currentChar.value)
-    // text.insert()
     
   })
-  // Add the color grid to the page.
+
+  //write a function that adds
  }
 function insertChar(yDoc, index, char) { 
+  if(yDoc.toString().length === 0) {
+    console.log('yDoc is empty')
+    return
+  }
   yDoc.delete(index,1)
   yDoc.insert(index, char)
 }
