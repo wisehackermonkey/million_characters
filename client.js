@@ -58,16 +58,40 @@ async function main() {
   //write a function that adds event listener to textarea[ name="sharededitor" ]
   //colors the textarea character at index with color red
   document.querySelector('textarea[name="sharededitor"]').addEventListener('click', (e) => {
-    let index = e.target.selectionStart
-    let char = text.toString().charAt(index)
-    e.target.setSelectionRange(index, index + 1)
-    let currentChar = document.querySelector('input[name="char"]')
-    let charIndex = document.querySelector('input[name="index_insert"]')
-    currentChar.value = char
-    charIndex.value = index
- 
+    var { index, char } = highlight_selection()
+    //when user press a character run the function insertChar
+    
   }
   )
+
+  document.querySelector('textarea[name="sharededitor"]').addEventListener('keypress', (e) => {
+    // disable typing in textarea
+    e.preventDefault()
+    // get current location of text cursor
+    const index = e.target.selectionStart;
+     
+    if (e.key.length === 1) {
+      const index = e.target.selectionStart
+      const char = e.key
+      insertChar(text, index, char)
+    }
+    // set cursor location to index
+    e.target.setSelectionRange(index, index)
+
+  })
+  function highlight_selection() {
+    let textarea = document.querySelector('textarea[name="sharededitor"]')
+    textarea.addEventListener('click', (e) => {
+      let index = e.target.selectionStart
+      let char = text.toString().charAt(index)
+      e.target.setSelectionRange(index, index + 1)
+      let currentChar = document.querySelector('input[name="char"]')
+      let charIndex = document.querySelector('input[name="index_insert"]')
+      currentChar.value = char
+      charIndex.value = index
+      return { index, char }
+    })
+  }
 
   //write a function that adds event listener to textarea[ name="sharededitor" ]
   //displays popup next to textarea with index of character and character
@@ -91,12 +115,12 @@ async function main() {
   }
   )
  }
-function insertChar(yDoc, index, char) { 
+function insertChar(yDoc, offset, char) { 
   if(yDoc.toString().length === 0) {
     console.log('yDoc is empty')
     return
   }
-  yDoc.delete(index,1)
-  yDoc.insert(index, char)
+  yDoc.insert(offset, char)
+  yDoc.delete(offset+1,1)
 }
 main() 
