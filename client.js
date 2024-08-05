@@ -1,7 +1,7 @@
+import './style.css'
 import * as Y from 'yjs'
 import { createYjsProvider } from '@y-sweet/client'
-import { createColorGridUI } from './ColorGrid'
-import { text } from 'express'
+ import { text } from 'express'
 
 const COLORS = ['#500724', '#831843', '#9d174d', '#be185d', '#db2777', '#f472b6', '#f9a8d4', null]
 const GRID_SIZE = 10
@@ -30,34 +30,12 @@ async function main() {
   // const sharedColorMap = doc.getMap('colorgrid')
   const text = doc.getText("text")
 
-  // Create the UI for the color grid.
-  // const { colorGridEl, updateCell } = createColorGridUI(
-  //   COLORS,
-  //   GRID_SIZE,
-  //   function onCellChange(key, color) {
-  //     if (color === null) {
-  //       sharedColorMap.delete(key)
-  //     } else {
-  //       sharedColorMap.set(key, color)
-  //     }
-  //   },
-  // )
-
-  // // Subscribe to changes on the sharedColorMap and update the UI accordingly.
-  // sharedColorMap.observe((event) => {
-  //   event.keysChanged.forEach((key) => {
-  //     updateCell(key, sharedColorMap.get(key) ?? null)
-  //   })
-  // })
   
 
-  text.observe((yEvent) => {
-    // console.log('text changed', event)
-    // console.log(text.toString())
+  text.observe((yEvent) => { 
     let s = text.toString()
      document.querySelector('textarea[name="sharededitor"]').value = s
-    // let s  = yEvent.keysChanged.toString()
-    // s
+ 
   })
 
   // <textarea name="sharededitor" id="" cols="30" rows="10"></textarea>
@@ -75,19 +53,9 @@ async function main() {
     
   })
   // Add the color grid to the page.
-  // document.querySelector('main').appendChild(colorGridEl)
-}
+ }
 function insertChar(yDoc, index, char) { 
   yDoc.delete(index,1)
   yDoc.insert(index, char)
 }
-main()
-// .catch((err) => {
-//   console.error(err)
-//   showErrMsg()
-// })
-
-function showErrMsg() {
-  const el = document.querySelector('.error-message')
-  el.classList.remove('hidden')
-}
+main() 
