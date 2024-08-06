@@ -11,7 +11,7 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-   <title>One Million Character Book</title>
+  <title>One Million Character Book</title>
   <script>
     function toggleVisibility() {
       //turns off on visablit for div #showadvanced
@@ -24,18 +24,24 @@
 </head>
 
 <body id="confetti">
+  <div class="jump">
+     <input class=""
+      style="margin-right: 6px; width: 100px; padding: 5px; border-color: rgb(219, 219, 219); border-radius: 10px;"
+      type="number" id="jump_num" max="1000000" min="0" placeholder="Line Numbe" style="width: 112px;"> 
+      <button type="button" class="btn btn-secondary" id="jump_button">Jump!</button></div>
+
   <div class="container">
 
     <!-- <div id="users"></div> -->
     <div class="popup" id="users">
       <!-- Popup content here -->
-      This is a popup!
+      Its just you here! 🌮
     </div>
   </div>
   <div id="awarenessPointer"></div>
   <!-- Total char counter -->
-   <div class="container text-center">
-    </div>
+  <div class="container text-center">
+  </div>
   <div class="container text-center">
     <!-- create a bootstrap  grid  with two rows, first row stacked center aligned title "One Million Letter Book", and sub heading "(Typing a letter shows for everyone!)", second row flush ends :left "made with ❤️ By oran C", and right counter "1,000,000 letter so far"  :right "you have typed 1000 letters"-->
     <div class="row">
@@ -45,66 +51,61 @@
       </div>
     </div>
     <div class="row">
-      <div class="col text-left">made with ❤️ By oran C</div>
+      <div class="col text-left">Made with 🌮's by <a href="https://oransblog.com/">oran C</a></div>
       <div class="col text-right">
-        <p><span id="totalCharCounter">0 </span>/1,000,000 letters typed</p>
+        <p><span id="totalCharCounter">0 </span>/1,000,000 letters left</p>
         <span>letters you have typed</span>
-       <p id="personalCounter"  >1000</p>
+        <p id="personalCounter">1000</p>
 
       </div>
     </div>
-    
-     
 
-    <textarea class="form-control " name="sharededitor" id="sharededitor" cols="30" rows="10" placeholder="...loading..."></textarea>
+
+
+    <textarea class="form-control " name="sharededitor" id="sharededitor" cols="30" rows="30"
+      placeholder="...loading..."></textarea>
     <p> </p>
-     
 
-    <div class="jump"> <input type="number" id="jump_num" max="1000000"  min="0" placeholder="Line Numbe" style="width: 106px;"> <button type="button" class="btn btn-primary" id="jump_button">Jump!</button></div>
-    <br>
+
     <div class="form-group text-center  mx-auto ">
-      
-      <input class="form-control text-center" type="text" name="char" id="demo" maxlength="1"
-        style="font-size: 60px; width: 3ch; margin: 0 auto;">
-      <p> </p>
-
-
-      <label class="label" for="char">Current Selected Character:</label>
 
 
 
-      <p> </p>
 
 
-      <button class='btn btn-primary btn-lg' name="submit" type="button">Confirm</button>
-      <p> </p>
+
+      <button name="submit" type="button" style="display: none;">Confirm</button>
 
 
-    
 
-    <div id="showadvanced" style="display: none;">
-         <label  class="label"  for="index_insert" class="label">Offset from beginning (starting with 0)
-      
-      <input class="form-control" type="number" name="index_insert" value="-1" style="width: 12ch;">
-      
-        <!-- <button class="btn btn-secondary btn-sm" name="insert_return" type="button">Insert Return</button> -->
-      
-      <textarea name="replacetext" id="" cols="30" rows="10"></textarea>
-      <button class='btn btn-primary btn-lg' name="replacetextbutton" type="button">Replace Text</button>
+
+      <div class="form-group" id="showadvanced" style="display: none;">
+ 
+ 
+        <label class="label" for="char">Enter Special Character</label>
+           <input class="form-control text-center" type="text" name="char" id="demo" maxlength="1"
+            style="font-size: 60px; width: 3ch; margin: 0 auto;">
+          <p> </p>
+
+
+
+          <textarea class="form-control" name="replacetext" id="" cols="30" rows="10"></textarea>
+          <button class='btn btn-primary btn-lg' name="replacetextbutton" type="button">Replace Text</button>
+      </div>
+      <div>
+        <button onclick="toggleVisibility()" class="btn" style="opacity: 0.5;">Show Advanced</button>
+      </div>
     </div>
-    <div>
-      <button onclick="toggleVisibility()" class="btn btn-primary btn-sm">Show Advanced</button>
-    </div>
+
+    <footer>
+      <div style="opacity: 0.5; font-size: xx-small;"> fonts used: <a href="https://www.onlinewebfonts.com/icon"
+          style="font-size: xx-small;">Apercu Pro Bold</a>, <a
+          href="https://www.dafontfree.net/sunset-demibold-regular-font/f23705.htm" style="font-size: xx-small;">sunset
+          demibold</a> </div>
+    </footer>
+    </footer>
   </div>
-  
-  <footer>
-    <div style="opacity: 0.5;"> fonts used: <a href="https://www.onlinewebfonts.com/icon">Apercu Pro Bold</a>, <a href="https://www.dafontfree.net/sunset-demibold-regular-font/f23705.htm">sunset demibold</a> </div>
-    <div>Made with ❤️ by Oran C</div>
-    <div><a href="https://oransblog.com/">Visit Oran's Blog</a></div>
-  </footer>
-  </footer>
-</div>
-</div>
+  </div>
 </body>
 
 </html>

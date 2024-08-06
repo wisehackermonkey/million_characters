@@ -347,32 +347,24 @@ async function main() {
   document.querySelector('textarea[name="sharededitor"]').addEventListener('click', (e) => {
     let index = e.target.selectionStart
     let char = text.toString().charAt(index)
-    let popup = document.createElement('div')
+    let popup = document.createElement('h1')
     popup.style.position = 'absolute'
-    popup.style.backgroundColor = 'white'
-    popup.style.border = '1px solid black'
+    popup.style.backgroundColor = 'rgba(255, 255, 255, 0.45)'
+    // popup.style.border = '1px solid black'
     popup.style.padding = '10px'
+    popup.style.fontSize = '60px'
     popup.style.top = `${e.clientY + 20}px`
     popup.style.left = `${e.clientX}px`
-    popup.innerHTML = `Index: ${index} Char: ${char}`
+    popup.innerHTML = `${char}`
     document.body.appendChild(popup)
     setTimeout(() => {
       popup.remove()
-    }, 1000)
+    }, 700)
 
 
   }
   )
-
-  // <button class="btn btn-secondary btn-sm" name="insert_space" type="button">Insert Space</button>
-  // <button class="btn btn-secondary btn-sm" name="insert_return" type="button">Insert Return</button>
-  //add event listener that inserts space at cursor location using insertChar function
-  document.querySelector('button[name="insert_space"]').addEventListener('click', () => {
-    let index = textarea.selectionStart
-    text.insert(index, " ")
-
-    disableInput(document.querySelector('button[name="insert_space"]'), DEFAULT_TIMEOUT)
-  })
+ 
 
   //add event listener to current_char where it selects all text in input
   current_char.addEventListener('click', (e) => {
@@ -397,14 +389,7 @@ async function main() {
     }
   })
 
-  //add a eventlistener when spacebar is pressed, and insert space at cursor location
-  document.addEventListener('keydown', (e) => {
-    if (e.key === ' ') {
-      let index = textarea.selectionStart
-      text.insert(index, " ")
-      disableInput(document.querySelector('button[name="insert_space"]'), DEFAULT_TIMEOUT)
-    }
-  })
+   
 
 }
 
