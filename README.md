@@ -6,11 +6,6 @@ https://onemillionchacters.com
 ```bash
 npm install
 ```
-# Follow setup of [y-sweet.cloud/docs setup](https://y-sweet.cloud/quickstart) to get your connection string
-# create .env file with 
-```bash
-echo "CONNECTION_STRING=<YOUR_CONNECTION_STRING>" > .env
-```
 ```bash
 npm run dev
 ```
