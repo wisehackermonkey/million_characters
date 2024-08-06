@@ -140,5 +140,17 @@ qwertyuiopasdfghjklzxcvbnm ,0123456789
 - add confitty!
 
 - add multiple pages [page 1][current page][page3] like mac finder with images displayed
+- host ysweet server on cloudflare
+   - [Running a Cloudflare Workers dev server](https://github.com/jamsocket/y-sweet/blob/main/docs/running.md)
 
+# TODO
+- change font
+- host online
+- fix delete
+- add mouse pointers
+- get multiple mouse pointers rendering
+# helpful links in dev
+- [y-sweet/examples/vanilla at main · jamsocket/y-sweet](https://github.com/jamsocket/y-sweet/tree/main/examples/vanilla)
+- [Awareness | Yjs Docs](https://docs.yjs.dev/api/about-awareness)
+- [A five minute guide to make an editor collaborative | Yjs Docs](https://docs.yjs.dev/getting-started/a-collaborative-editor)
 # License MIT @ oran collins 2024
