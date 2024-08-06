@@ -18,44 +18,116 @@ const current_char = document.querySelector('input[name="char"]')
 const DEFAULT_DOCUMENT = 'demo'
 const DEFAULT_TIMEOUT = 3/*seconds*/ *1000;//seconds
 
-// on page load run canvas-confetti
-
-
+ 
 async function main() {
   // First, fetch a client token that can access the docId in the URL.
   // Or, if the URL does not contain a docId, get a client token for a new doc.
-  const url = new URL(`http://localhost:9090/client-token`)
-  var searchParams = new URLSearchParams(window.location.search)
-  if (searchParams.size === 0){
-    var searchParams = new URLSearchParams(DEFAULT_DOCUMENT)
+  // const url = new URL(`http://localhost:9090/client-token`)
+  // var searchParams = new URLSearchParams(window.location.search)
+  // if (searchParams.size === 0){
+  //   var searchParams = new URLSearchParams(DEFAULT_DOCUMENT)
 
-  }
-  const docId = searchParams.get(QUERY_PARAM)
-  if (docId) url.searchParams.set(QUERY_PARAM, DEFAULT_DOCUMENT)
-  const res = await fetch(url.toString())
-  const clientToken = await res.json()
+  // }
+  // const docId = searchParams.get(QUERY_PARAM)
+  // if (docId) url.searchParams.set(QUERY_PARAM, DEFAULT_DOCUMENT)
+  // const res = await fetch(url.toString())
+  const clientToken = { url: `ws://${window.location.hostname}:8080/doc/ws`, docId: 'docId' }//await res.json()
 
   //TODO make this static
   // Update the URL to include the docId if it was not already present.
-  if (!docId) {
-    const url = new URL(window.location.href)
-    url.searchParams.set(QUERY_PARAM, DEFAULT_DOCUMENT)
-    window.history.replaceState({}, '', url.toString())
-  }
+  // if (!docId) {
+  //   const url = new URL(window.location.href)
+  //   url.searchParams.set(QUERY_PARAM, DEFAULT_DOCUMENT)
+  //   window.history.replaceState({}, '', url.toString())
+  // }
 
   // Create a Yjs document and connect it to the Y-Sweet server.
   const doc = new Y.Doc()
-  createYjsProvider(doc, clientToken, { disableBc: true })
-   // const text = doc.getText("text")
-  //let us know how many people are connected to the website at one time
   var awareness = new awarenessProtocol.Awareness(doc)
 
+  createYjsProvider(doc, clientToken, { disableBc: true, awareness:awareness })
+   // const text = doc.getText("text")
+  //let us know how many people are connected to the website at one time
   const text = doc.getText("demo")
+ 
+ 
+// You can observe when a user updates their awareness information
+awareness.on('change', changes => {
+  // Whenever somebody updates their awareness information,
+  // we log all awareness information from all users.
+  console.log(Array.from(awareness.getStates().values()))
+})
+
+// You can think of your own awareness information as a key-value store.
+// We update our "user" field to propagate relevant user information.
+awareness.setLocalStateField('user', {
+  // Define a print name that should be displayed
+  name: 'Emmanuelle Charpentier',
+  // Define a color that should be associated to the user:
+  color: '#ffb61e' // should be a hex color
+})
+  const usercolors = [
+    '#30bced',
+    '#6eeb83',
+    '#ffbc42',
+    '#ecd444',
+    '#ee6352',
+    '#9ac2c9',
+    '#8acb88',
+    '#1be7ff'
+  ]
+  const ANIMAL_NAMES = [ 'Lion', 'Tiger', 'Elephant', 'Deer', 'Bear', 'Monkey', 'Giraffe', 'Dolphin', 'Whale', 'Penguin', 'Koala', 'Kangaroo', 'Panda', 'Zebra', 'Hippopotamus', 'Rhinoceros', 'Leopard', 'Cheetah', 'Fox', 'Wolf', 'Rabbit', 'Squirrel', 'Raccoon', 'Otter', 'Skunk', 'Beaver', 'Badger', 'Opossum', 'Mouse', 'Rat', 'Hedgehog', 'Bat', 'Sloth', 'Anteater', 'Armadillo', 'Porcupine', 'Platypus', 'Wombat', 'Tasmanian Devil', 'Mole', 'Weasel', 'Ferret', 'Marten', 'Mink', 'Sable', 'Stoat', 'Meerkat', 'Prairie Dog', 'Groundhog', 'Woodchuck', 'Chipmunk', 'Hamster', 'Gerbil', 'Guinea Pig', 'Chinchilla', 'Degu', 'Lemming', 'Vole', 'Muskrat', 'Shrew', ]
+  const animalName = ANIMAL_NAMES[Math.floor(Math.random() * ANIMAL_NAMES.length)]
+  const myColor = usercolors[Math.floor(Math.random() * usercolors.length)]
+  awareness.setLocalStateField('user', { name: `${animalName}:${Math.floor(Math.random()*10000)}`, color: myColor })
+
+  //on page load set the user's name and color
+  // awareness.setLocalStateField('user', { name: 'Emmanuelle Charpentier', color: usercolors[Math.floor(Math.random() * usercolors.length)] })
+
+  // awareness.on('change', () => {
+  //   // Map each awareness state to a dom-string
+  //   const strings = []
+  //  let states =  awareness.getStates()
+  //  console.log(states)
+  // })  
+  // Whenever the local state changes, communicate that change to all connected clients
+  showPopup(true)
+awareness.on('update', ({ added, updated, removed }) => {
+  console.log(added)
+  console.log(updated)
+  console.log(removed)
+  // const strings = []
+  awareness.getStates().values().forEach(state => {
+  console.log(state.user)
+  })
+  const strings = []
+  awareness.getStates().values().forEach(state => {
+    console.log(state)
+    if (state.user) {
+      strings.push(`<div class="floating"style="color:${state.user.color};">User: ${state.user.name}</div>`)
+    }
+    document.querySelector('#users').innerHTML = strings.join('')
+  })
+})
+  awareness.on('change', () => {
+    // Map each awareness state to a dom-string
+     console.log("change")
+     awareness.getStates().values().forEach(state => {
+      console.log(state.user)
+      })
+    const strings = []
+  awareness.getStates().values().forEach(state => {
+    console.log(state)
+    if (state.user) {
+      strings.push(`<div style="color:${state.user.color};">change ${state.user.name}</div>`)
+    }
+    document.querySelector('#users').innerHTML = strings.join('')
+  })
+  })
  
   //disable delete key for textarea
   textarea.addEventListener('keydown', (e) => {
     if (e.key === 'Backspace') {
-      //create pop tooltip for textarea "sorry backspace is deactivated"
       insertChar(text, e.target.selectionStart, ' ')
       disableInput(textarea, DEFAULT_TIMEOUT)
       e.preventDefault()
@@ -104,11 +176,16 @@ async function main() {
       e.preventDefault();
     }
   });
-
+  let isPlayConfett = true
   textarea.addEventListener('keypress', (e) => {
     // disable typing in textarea
     e.preventDefault()
-    //disable selectall 
+     //only play confetti animation once using isPlayConfett
+    if (isPlayConfett){
+      playConfetti()
+      isPlayConfett = false
+
+    }
 
     // get current location of text cursor
     const index = e.target.selectionStart;
@@ -256,10 +333,17 @@ function playConfetti() {
   });
   
 }
-
+function showPopup(visable) {
+  var popup = document.getElementById("users");
+  if (visable === true) {
+    popup.style.display = "block";
+  } else {
+    popup.style.display = "none";
+  }
+}
 
 function insertChar(yDoc, offset, char) {
-  playConfetti()
+ 
 
   //add confetty animation everytime this function is called
   if (yDoc.toString().length === 0) {

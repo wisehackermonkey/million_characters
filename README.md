@@ -16,14 +16,16 @@ npm run dev
 ```
 ### In another terminal
 ```bash
-npm run server
+# npm run server
+ npx y-sweet@latest serve ./persist --host 0.0.0.0
 ```
+![alt text](img/image-1.png)
 ### if `npm run server` fails you need a [y-sweet.cloud](https://y-sweet.cloud/quickstart) api key. ex:  `yss://......../`
 ```bash
 CONNECTION_STRING=<your-connection-string> npm run server
 ```
 ## Open [localhost:3000](http://localhost:3000) in your browser.
-![alt text](image.png)
+![alt text](img/image.png)
 ## Success!
 
 ----
@@ -137,6 +139,6 @@ qwertyuiopasdfghjklzxcvbnm ,0123456789
 - add big sound effect when send
 - add confitty!
 
-
+- add multiple pages [page 1][current page][page3] like mac finder with images displayed
 
 # License MIT @ oran collins 2024

@@ -25,6 +25,14 @@
 </head>
 
 <body id="confetti">
+  <div class="container">
+
+    <!-- <div id="users"></div> -->
+    <div class="popup" id="users">
+      <!-- Popup content here -->
+      This is a popup!
+    </div>
+  </div>
   <div class="container text-center">
     <h1>One Million Character Book</h1>
     <p>
@@ -34,44 +42,45 @@
       Lets make some history!
     </p>
     <div class="container" style="text-align: center;">
-      
+
     </div>
-      <textarea class="form-control" name="sharededitor" id="" cols="30" rows="10" placeholder="...loading..."></textarea>
-      <br>
-      <div class="form-group text-center  mx-auto ">
-        <input class="form-control text-center" type="text" name="char" id="demo"  maxlength="1" style="font-size: 60px; width: 3ch; margin: 0 auto;">
-        <p class="paragraph"> </p>
+    <textarea class="form-control" name="sharededitor" id="" cols="30" rows="10" placeholder="...loading..."></textarea>
+    <br>
+    <div class="form-group text-center  mx-auto ">
+      <input class="form-control text-center" type="text" name="char" id="demo" maxlength="1"
+        style="font-size: 60px; width: 3ch; margin: 0 auto;">
+      <p class="paragraph"> </p>
 
 
-        <label class="label" for="char">Current Selected Character:</label>
+      <label class="label" for="char">Current Selected Character:</label>
 
 
 
-        <p class="paragraph"> </p>
+      <p class="paragraph"> </p>
 
 
-        <button class='btn btn-primary btn-lg' name="submit" type="button">Confirm</button>
-        <p class="paragraph"> </p>
+      <button class='btn btn-primary btn-lg' name="submit" type="button">Confirm</button>
+      <p class="paragraph"> </p>
 
 
-      </div>
+    </div>
 
-      <div id="showadvanced" style="display: none;">
-        <div>
-          <label for="index_insert" class="label">Offset from beginning (starting with 0)
-        </div>
-        <input class="form-control" type="number" name="index_insert" value="-1" style="width: 12ch;">
-        <div>
-          <button class="btn btn-secondary btn-sm" name="insert_space" type="button">Insert Space</button>
-          <button class="btn btn-secondary btn-sm" name="insert_return" type="button">Insert Return</button>
-        </div>
-        <textarea name="replacetext" id="" cols="30" rows="10"></textarea>
-        <button class='btn btn-primary btn-lg' name="replacetextbutton" type="button">Replace Text</button>
-      </div>
+    <div id="showadvanced" style="display: none;">
       <div>
-        <button onclick="toggleVisibility()" class="btn btn-primary btn-sm">Show Advanced</button>
+        <label for="index_insert" class="label">Offset from beginning (starting with 0)
       </div>
+      <input class="form-control" type="number" name="index_insert" value="-1" style="width: 12ch;">
+      <div>
+        <button class="btn btn-secondary btn-sm" name="insert_space" type="button">Insert Space</button>
+        <button class="btn btn-secondary btn-sm" name="insert_return" type="button">Insert Return</button>
+      </div>
+      <textarea name="replacetext" id="" cols="30" rows="10"></textarea>
+      <button class='btn btn-primary btn-lg' name="replacetextbutton" type="button">Replace Text</button>
     </div>
+    <div>
+      <button onclick="toggleVisibility()" class="btn btn-primary btn-sm">Show Advanced</button>
+    </div>
+  </div>
   </div>
 </body>
 
