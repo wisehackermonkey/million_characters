@@ -147,8 +147,12 @@ qwertyuiopasdfghjklzxcvbnm ,0123456789
 - change font
 - host online
 - fix delete
-- add mouse pointers
-- get multiple mouse pointers rendering
+- x add mouse pointers
+- x  get multiple mouse pointers rendering
+- add total char counter
+- show spaces
+- fix mouse perposinality with screen size
+- add skip to line number
 # helpful links in dev
 - [y-sweet/examples/vanilla at main · jamsocket/y-sweet](https://github.com/jamsocket/y-sweet/tree/main/examples/vanilla)
 - [Awareness | Yjs Docs](https://docs.yjs.dev/api/about-awareness)

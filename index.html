@@ -33,6 +33,10 @@
     </div>
   </div>
   <div id="awarenessPointer"></div>
+  <!-- Total char counter -->
+   <div class="container text-center">
+    <p>Total Characters: <span id="totalCharCounter">0 </span>/1,000,000</p>
+    </div>
   <div class="container text-center">
     <h1>One Million Character Book</h1>
     <p>
@@ -63,23 +67,23 @@
       <p class="paragraph"> </p>
 
 
-    </div>
+    
 
     <div id="showadvanced" style="display: none;">
-      <div>
-        <label for="index_insert" class="label">Offset from beginning (starting with 0)
-      </div>
+         <label  class="label"  for="index_insert" class="label">Offset from beginning (starting with 0)
+      
       <input class="form-control" type="number" name="index_insert" value="-1" style="width: 12ch;">
-      <div>
+      
         <button class="btn btn-secondary btn-sm" name="insert_space" type="button">Insert Space</button>
-        <button class="btn btn-secondary btn-sm" name="insert_return" type="button">Insert Return</button>
-      </div>
-      <textarea name="replacetext" id="" cols="30" rows="10"></textarea>
-      <button class='btn btn-primary btn-lg' name="replacetextbutton" type="button">Replace Text</button>
+        <!-- <button class="btn btn-secondary btn-sm" name="insert_return" type="button">Insert Return</button> -->
+      
+      <!-- <textarea name="replacetext" id="" cols="30" rows="10"></textarea> -->
+      <!-- <button class='btn btn-primary btn-lg' name="replacetextbutton" type="button">Replace Text</button> -->
     </div>
     <div>
       <button onclick="toggleVisibility()" class="btn btn-primary btn-sm">Show Advanced</button>
     </div>
+  </div>
   </div>
   </div>
 </body>

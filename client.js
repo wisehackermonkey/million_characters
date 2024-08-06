@@ -14,13 +14,24 @@ const textarea = document.querySelector('textarea[name="sharededitor"]')
 const replace_text = document.querySelector('textarea[name="replacetext"]')
 const replace_text_button = document.querySelector('button[name="replacetextbutton"]')
 const current_char = document.querySelector('input[name="char"]')
-
+const total_char = document.querySelector('#totalCharCounter')
 const DEFAULT_DOCUMENT = 'demo'
 const DEFAULT_TIMEOUT = 3/*seconds*/ * 1000;//seconds
 
+// write a function that reads a file called test.txt and returns the contents of the file as string, using async await
+async function readTextFile(file) {
+  const response = await fetch(file);
+  const text = await response.text();
+  return text
+}
+var test_sample
 
 async function main() {
-
+  test_sample = await readTextFile("test.txt").then((data) => {
+    console.log(data.length)
+    // test_sample = data
+    return data
+  })
   const clientToken = { url: `ws://${window.location.hostname}:8080/doc/ws`, docId: 'docId' }//await res.json()
 
 
@@ -60,7 +71,9 @@ async function main() {
   const user = awareness.getLocalState().user
   showPopup(true)
 
-
+  doc.on('update', () => {
+    total_char.innerText = text.toString().length
+  })
   // displayAwarenessMousePointer(awareness)
   function createAwarenessPointer(color,x,y) {
     const pointer = document.createElement('div');
@@ -406,7 +419,6 @@ function showPopup(visable) {
     }
 
 function insertChar(yDoc, offset, char) {
-
 
       //add confetty animation everytime this function is called
       if (yDoc.toString().length === 0) {
