@@ -99,7 +99,7 @@ async function main() {
     pointer.style.width = '10px';
     pointer.style.height = '10px';
     pointer.style.borderRadius = '50%';
-    pointer.style.backgroundColor = 'red';
+    // pointer.style.backgroundColor = 'red';
     pointer.style.pointerEvents = 'none';
     pointer.style.zIndex = '1000';
     pointer.style.backgroundColor = color;
