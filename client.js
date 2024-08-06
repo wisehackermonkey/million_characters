@@ -91,7 +91,13 @@ async function main() {
     if (state.mouse) {
       const { x, y } = state.mouse;
       //add createAwarenessPointer(state.user.color,x,y) by client id
-      users[state.user.name] = createAwarenessPointer(state.user.color,x,y)
+      if (users[state.mouse.id.toString()]) {
+        users[state.mouse.id.toString()].style.left = `${x}px`;
+        users[state.mouse.id.toString()].style.top = `${y}px`;
+      } else {
+        //create new mouse pointer
+      users[state.mouse.id.toString()] = createAwarenessPointer(state.user.color,x,y)
+      }
     }
   })
   // add div for each user, use createAwarenessPointer
