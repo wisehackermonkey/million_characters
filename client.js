@@ -216,7 +216,7 @@ async function main() {
     })
   })
 
-  
+
 
   text.observe((yEvent) => {
     textarea.value = text.toString()
@@ -226,7 +226,7 @@ async function main() {
   // <button type="button"  onclick="setText()">Submit</button>
   // for button onclick add event listener that calls text.set('text', textarea.value)
   //get text from text area sharededitor
-  
+
 
   submit_button.addEventListener('click', () => {
     let currentChar = document.querySelector('input[name="char"]')
@@ -240,10 +240,10 @@ async function main() {
     disableInput(textarea, DEFAULT_TIMEOUT)
     disableButton(submit_button, DEFAULT_TIMEOUT)
   })
-  
-  
+
+
   let isPlayConfett = true
-  
+
   replace_text_button?.addEventListener('click', () => {
     text.delete(0, text.toString().length)
     text.insert(0, replace_text.value)
@@ -307,7 +307,7 @@ async function main() {
 
   }
   )
- 
+
 
   //add event listener to current_char where it selects all text in input
   // current_char.addEventListener('click', (e) => {
@@ -316,45 +316,45 @@ async function main() {
   // Merge event listeners for textarea and current_char
   textarea.addEventListener('keydown', (e) => {
 
-    var offset  = e.target.selectionStart;
-    e.target.setSelectionRange(offset, offset + 1)
+    var offset = e.target.selectionStart;
 
 
-   
 
-     // Disable typing in textarea and insert character at cursor location
-     if (e.key.length === 1 && e.Back !== 'Backspace') {
+
+    // Disable typing in textarea and insert character at cursor location
+    if (e.key.length === 1 && e.Back !== 'Backspace') {
       const char = e.key
       insertChar(text, offset, char)
-       
-   }
+
+    }
 
     // Disable delete key for textarea
-    if (e.key === 'Backspace') { 
-      
-      updatePersonalCounter()
+    if (e.key === 'Backspace') {
+
+
       triggerAnimation()
       text.delete(offset, 1)
     }
-    
+
     // Disable select all for textarea[name="sharededitor"]
     if (e.ctrlKey && e.key === 'a') {
       e.preventDefault();
       alert('Select all is disabled')
     }
-    
+
     // Insert space at cursor location when spacebar is pressed
     if (e.key === ' ' || e.key === 'Spacebar') {
       text.insert(offset, " ")
     }
-    
+
     //filter out  key is not a control key, insert the key at cursor location
     const keyboardCharacters = [
       'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', // Alphabet
       'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', // Uppercase Alphabet
       '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', // Numbers
       '`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', // Special characters row 1
-      '[', ']', '{', '}', '\\', '|', ';', ':', '\'', '"', ',', '<', '.', '>', '/', '?' // Special characters row 2
+      '[', ']', '{', '}', '\\', '|', ';', ':', '\'', '"', ',', '<', '.', '>', '/', '?', // Special characters row 2
+      "Backspace", " ", "Spacebar",
     ];
     if (keyboardCharacters.includes(e.key)) {
 
@@ -362,8 +362,11 @@ async function main() {
         playConfetti()
         isPlayConfett = false
       }
+      updatePersonalCounter(1)
       disableInput(textarea, DEFAULT_TIMEOUT)
     }
+    // e.target.setSelectionRange(offset, offset + 1)
+
   })
 
   // Add event listener for current_char on enter key to insert the value of current_char at cursor location
@@ -376,16 +379,16 @@ async function main() {
     }
   })
 
-   
+
 
 }
 
 // create a function that updates personal counter for number of letters typed, stored in localstorage, and loaded one page loads,  element id="personalCounter"
 function updatePersonalCounter(index = 1) {
-  let counter = localStorage.getItem('counter') || 0
-  counter+= index
-  localStorage.setItem('counter', counter)
-  document.getElementById('personalCounter').innerText = counter.toString()
+  let counter = parseInt(localStorage.getItem('counter')|| 0)
+  counter++
+  localStorage.setItem('counter', counter )
+  document.getElementById('personalCounter').innerText = counter
 }
 
 // create a function for intially setting the personal counter
@@ -446,7 +449,7 @@ function showPopup(visable) {
 }
 
 function insertChar(doc_, offset, char) {
- 
+
   //add confetty animation everytime this function is called
   if (doc_.toString().length === 0) {
     console.log('doc_ is empty')
