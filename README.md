@@ -17,13 +17,9 @@ npm run dev
 ### In another terminal
 ```bash
 # npm run server
- npx y-sweet@latest serve ./persist --host 0.0.0.0
+npx y-sweet@latest serve ./persist --host 0.0.0.0 --port 8080
 ```
-![alt text](img/image-1.png)
-### if `npm run server` fails you need a [y-sweet.cloud](https://y-sweet.cloud/quickstart) api key. ex:  `yss://......../`
-```bash
-CONNECTION_STRING=<your-connection-string> npm run server
-```
+
 ## Open [localhost:3000](http://localhost:3000) in your browser.
 ![alt text](img/image.png)
 ## Success!
@@ -144,15 +140,21 @@ qwertyuiopasdfghjklzxcvbnm ,0123456789
    - [Running a Cloudflare Workers dev server](https://github.com/jamsocket/y-sweet/blob/main/docs/running.md)
 
 # TODO
-- change font
-- host online
-- fix delete
+- x host online
 - x add mouse pointers
 - x  get multiple mouse pointers rendering
+- add startup script.sh
+- create a service daemon
+- fix delete
 - add total char counter
+   - of non space characters (arch question: space or no space?)
 - show spaces
 - fix mouse perposinality with screen size
 - add skip to line number
+
+# Juice & Bugs 
+- change font
+-
 # helpful links in dev
 - [y-sweet/examples/vanilla at main · jamsocket/y-sweet](https://github.com/jamsocket/y-sweet/tree/main/examples/vanilla)
 - [Awareness | Yjs Docs](https://docs.yjs.dev/api/about-awareness)

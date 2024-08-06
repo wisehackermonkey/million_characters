@@ -43,3 +43,8 @@ input[type="submit"] {
   z-index: 1000; /* Ensure it is on top */
   display: none; /* Initially hidden */
 }
+
+.jump_num{
+  /* set width to 10ch */
+  width: 10ch;
+}

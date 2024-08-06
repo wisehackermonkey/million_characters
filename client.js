@@ -27,11 +27,7 @@ async function readTextFile(file) {
 var test_sample
 
 async function main() {
-  test_sample = await readTextFile("test.txt").then((data) => {
-    console.log(data.length)
-    // test_sample = data
-    return data
-  })
+  
   const clientToken = { url: `ws://${window.location.hostname}:8080/doc/ws`, docId: 'docId' }//await res.json()
 
 
@@ -124,8 +120,7 @@ async function main() {
 
   awareness.on('change', () => {
     // Map each awareness state to a dom-string
-    // console.log("change") 
-    const strings = []
+     const strings = []
 
     awareness.getStates().values().forEach(state => {
       //for all mouse in state, draw createAwarenessPointer
@@ -144,8 +139,7 @@ async function main() {
     })
 
       awareness.getStates().values().forEach(state => {
-        // console.log(state)
-        if (state.user) {
+         if (state.user) {
           strings.push(`<div style="color:${state.user.color};">${state.user.name}</div>`)
         }
         document.querySelector('#users').innerHTML = strings.join('')
@@ -168,7 +162,8 @@ async function main() {
           const { x, y } = state.mouse;
           pointer.style.left = `${x}px`;
           pointer.style.top = `${y}px`;
-          console.log('mouse', { x, y });
+          // console.log('mouse', { x, y });
+          console.log(".")
         }
 
         if (state.user) {
@@ -278,7 +273,7 @@ async function main() {
 
     })
 
-    replace_text_button.addEventListener('click', () => {
+    replace_text_button?.addEventListener('click', () => {
       text.delete(0, text.toString().length)
       text.insert(0, replace_text.value)
     })
@@ -442,7 +437,5 @@ function sendMousePosition(awareness, mouseElements) {
         awareness.setLocalStateField("mouse", { x, y, id });
       });
     }
-
-
 
 main() 
