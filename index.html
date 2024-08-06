@@ -48,7 +48,8 @@
       <div class="col text-left">made with ❤️ By oran C</div>
       <div class="col text-right">
         <p><span id="totalCharCounter">0 </span>/1,000,000 letters typed</p>
-        <p>you have typed <p id="personalCounter"  >1000</p> letters</p>
+        <span>letters you have typed</span>
+       <p id="personalCounter"  >1000</p>
 
       </div>
     </div>
@@ -56,24 +57,27 @@
      
 
     <textarea class="form-control " name="sharededitor" id="sharededitor" cols="30" rows="10" placeholder="...loading..."></textarea>
-    <p class="paragraph"> </p>
+    <p> </p>
+     
+
     <div class="jump"> <input type="number" id="jump_num" max="1000000"  min="0" placeholder="Line Numbe" style="width: 106px;"> <button type="button" class="btn btn-primary" id="jump_button">Jump!</button></div>
     <br>
     <div class="form-group text-center  mx-auto ">
+      
       <input class="form-control text-center" type="text" name="char" id="demo" maxlength="1"
         style="font-size: 60px; width: 3ch; margin: 0 auto;">
-      <p class="paragraph"> </p>
+      <p> </p>
 
 
       <label class="label" for="char">Current Selected Character:</label>
 
 
 
-      <p class="paragraph"> </p>
+      <p> </p>
 
 
       <button class='btn btn-primary btn-lg' name="submit" type="button">Confirm</button>
-      <p class="paragraph"> </p>
+      <p> </p>
 
 
     
@@ -83,7 +87,6 @@
       
       <input class="form-control" type="number" name="index_insert" value="-1" style="width: 12ch;">
       
-        <button class="btn btn-secondary btn-sm" name="insert_space" type="button">Insert Space</button>
         <!-- <button class="btn btn-secondary btn-sm" name="insert_return" type="button">Insert Return</button> -->
       
       <textarea name="replacetext" id="" cols="30" rows="10"></textarea>

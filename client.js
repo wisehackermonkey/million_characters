@@ -92,7 +92,7 @@ async function main() {
     total_char.innerText = text.toString().length
   })
   // displayAwarenessMousePointer(awareness)
-  function createAwarenessPointer(color,x,y) {
+  function createAwarenessPointer(color, x, y) {
     const pointer = document.createElement('div');
     pointer.id = 'awarenessPointer';
     pointer.style.position = 'absolute';
@@ -113,7 +113,7 @@ async function main() {
 
   // Call the function with the user object
   //create array of users
-   var mouseElements = [createAwarenessPointer(user.color,0,0)];
+  var mouseElements = [createAwarenessPointer(user.color, 0, 0)];
   var users = {}
   // make a dictionary for each clientID and their mouse pointer
   // for each user in awareness, create a mouse pointer, and store reference in users
@@ -126,12 +126,12 @@ async function main() {
         users[state.mouse.id.toString()].style.top = `${y}px`;
       } else {
         //create new mouse pointer
-      users[state.mouse.id.toString()] = createAwarenessPointer(state.user.color,x,y)
+        users[state.mouse.id.toString()] = createAwarenessPointer(state.user.color, x, y)
       }
     }
   })
   // add div for each user, use createAwarenessPointer
-   
+
   sendMousePosition(awareness, mouseElements)
 
   //draw all users mouse pointers
@@ -141,7 +141,7 @@ async function main() {
 
   awareness.on('change', () => {
     // Map each awareness state to a dom-string
-     const strings = []
+    const strings = []
 
     awareness.getStates().values().forEach(state => {
       //for all mouse in state, draw createAwarenessPointer
@@ -153,326 +153,352 @@ async function main() {
           users[state.mouse.id.toString()].style.top = `${y}px`;
         } else {
           //create new mouse pointer
-        users[state.mouse.id.toString()] = createAwarenessPointer(state.user.color,x,y)
+          users[state.mouse.id.toString()] = createAwarenessPointer(state.user.color, x, y)
         }
         // mouseElements.push(createAwarenessPointer(state.user.color,x,y));
       }
     })
 
-      awareness.getStates().values().forEach(state => {
-         if (state.user) {
-          strings.push(`<div style="color:${state.user.color};">${state.user.name}</div>`)
-        }
-        document.querySelector('#users').innerHTML = strings.join('')
-      })
-
-
-
-    })
-
-
-
-    awareness.on('update', ({ added, updated, removed }) => {
-      //get awarenessPointer div
-      var pointer = mouseElements[0]
-
-      const strings = []
-      awareness.getStates().values().forEach(state => {
-        //if state.mouse is not null
-        if (state.mouse) {
-          const { x, y } = state.mouse;
-          pointer.style.left = `${x}px`;
-          pointer.style.top = `${y}px`;
-          // console.log('mouse', { x, y });
-          console.log(".")
-        }
-
-        if (state.user) {
-          strings.push(`<div class="floating"style="color:${state.user.color};">User: ${state.user.name}</div>`)
-        }
-        document.querySelector('#users').innerHTML = strings.join('')
-      })
-
-
-      // const states = awareness.getStates().values();
-      // for (const clientId in states) {
-      //   const state = states[clientId];
-
-      // }
-    })
-
-
-    awareness.on('change', () => {
-      // Map each awareness state to a dom-string
-      // console.log("change") 
-      const strings = []
-
-      awareness.getStates().values().forEach(state => {
-        // console.log(state)
-        if (state.user) {
-          strings.push(`<div style="color:${state.user.color};">${state.user.name}</div>`)
-        }
-        document.querySelector('#users').innerHTML = strings.join('')
-      })
-    })
-
-    //disable delete key for textarea
-    textarea.addEventListener('keydown', (e) => {
-      if (e.key === 'Backspace') {
-        insertChar(text, e.target.selectionStart, ' ')
-        disableInput(textarea, DEFAULT_TIMEOUT)
-        e.preventDefault()
+    awareness.getStates().values().forEach(state => {
+      if (state.user) {
+        strings.push(`<div style="color:${state.user.color};">${state.user.name}</div>`)
       }
+      document.querySelector('#users').innerHTML = strings.join('')
     })
 
-    text.observe((yEvent) => {
-      textarea.value = text.toString()
+
+
+  })
+
+
+
+  awareness.on('update', ({ added, updated, removed }) => {
+    //get awarenessPointer div
+    var pointer = mouseElements[0]
+
+    const strings = []
+    awareness.getStates().values().forEach(state => {
+      //if state.mouse is not null
+      if (state.mouse) {
+        const { x, y } = state.mouse;
+        pointer.style.left = `${x}px`;
+        pointer.style.top = `${y}px`;
+        // console.log('mouse', { x, y });
+        console.log(".")
+      }
+
+      if (state.user) {
+        strings.push(`<div class="floating"style="color:${state.user.color};">User: ${state.user.name}</div>`)
+      }
+      document.querySelector('#users').innerHTML = strings.join('')
     })
 
-    // <textarea name="sharededitor" id="" cols="30" rows="10"></textarea>
-    // <button type="button"  onclick="setText()">Submit</button>
-    // for button onclick add event listener that calls text.set('text', textarea.value)
-    //get text from text area sharededitor
+
+    // const states = awareness.getStates().values();
+    // for (const clientId in states) {
+    //   const state = states[clientId];
+
+    // }
+  })
 
 
-    submit_button.addEventListener('click', () => {
-      let currentChar = document.querySelector('input[name="char"]')
-      let charIndex = document.querySelector('input[name="index_insert"]')
-      if (text.toString().length === 0 && currentChar.value.length === 1) {
-        text.insert(0, currentChar.value)
+  awareness.on('change', () => {
+    // Map each awareness state to a dom-string
+    // console.log("change") 
+    const strings = []
+
+    awareness.getStates().values().forEach(state => {
+      // console.log(state)
+      if (state.user) {
+        strings.push(`<div style="color:${state.user.color};">${state.user.name}</div>`)
+      }
+      document.querySelector('#users').innerHTML = strings.join('')
+    })
+  })
+
+  //disable delete key for textarea
+  textarea.addEventListener('keydown', (e) => {
+    if (e.key === 'Backspace') {
+      insertChar(text, e.target.selectionStart, '', true)
+      updatePersonalCounter() 
+      triggerAnimation()
+      if (option == true) {
+        doc_.delete(offset, 1)
+    
         return
       }
-      insertChar(text, parseInt(charIndex.value), currentChar.value)
-      disableInput(submit_button, DEFAULT_TIMEOUT)
       disableInput(textarea, DEFAULT_TIMEOUT)
-      disableButton(submit_button, DEFAULT_TIMEOUT)
-    })
-    //write a function that adds event listener to textarea[ name="sharededitor" ]
-    //colors the textarea character at index with color red
-    textarea.addEventListener('click', (e) => {
-      let index = e.target.selectionStart
-      let char = text.toString().charAt(index)
-      e.target.setSelectionRange(index, index + 1)
-      let currentChar = document.querySelector('input[name="char"]')
-      let charIndex = document.querySelector('input[name="index_insert"]')
-      currentChar.value = char
-      charIndex.value = index
-      return { index, char }
-    })
-
-    // add event listener that disable select all for textarea[name="sharededitor"] 
-    textarea.addEventListener('keydown', (e) => {
-      if (e.ctrlKey && e.key === 'a') {
-        alert('Select all is disabled')
-        e.preventDefault();
-      }
-    });
-    let isPlayConfett = true
-    textarea.addEventListener('keypress', (e) => {
-      // disable typing in textarea
       e.preventDefault()
-      //only play confetti animation once using isPlayConfett
-      if (isPlayConfett) {
-        playConfetti()
-        isPlayConfett = false
-
-      }
-
-      // get current location of text cursor
-      const index = e.target.selectionStart;
-      e.target.setSelectionRange(index, index + 1)
-
-      if (e.key.length === 1) {
-        const index = e.target.selectionStart
-        const char = e.key
-        insertChar(text, index, char)
-
-
-      }
-      // set cursor location to index
-      disableInput(textarea, 3000);
-
-    })
-
-    replace_text_button?.addEventListener('click', () => {
-      text.delete(0, text.toString().length)
-      text.insert(0, replace_text.value)
-    })
-
-
-    function disableInput(element, time) {
-      //change mouse cursor to waiting cursor
-      element.style.cursor = 'wait'
-      //disable element
-      element.disabled = true
-      //change mouse cursor back to default cursor
-      setTimeout(() => {
-        element.style.cursor = 'default'
-        element.disabled = false
-
-      }, 2000)
     }
-    let counter = 0;
-    //write a function that adds a timer's text to the button format: "Submit wait {} seconds"
-    function disableButton(element, time) {
-      element.disabled = true
-      counter = 0;
-      counter = time;
-      element.innerText = `Confirm`
-      setInterval(() => {
+  })
 
-        if (counter > 0) {
-          counter -= 1000
-        }
-        element.innerText = `Confirm wait ${counter / 1000} seconds`
-      }
-        , 1000)
+  text.observe((yEvent) => {
+    textarea.value = text.toString()
+  })
 
-      // element.innerText = `Confirm wait ${time} seconds`
-      setTimeout(() => {
-        element.disabled = false
-        element.innerText = 'Confirm'
-      }, time)
+  // <textarea name="sharededitor" id="" cols="30" rows="10"></textarea>
+  // <button type="button"  onclick="setText()">Submit</button>
+  // for button onclick add event listener that calls text.set('text', textarea.value)
+  //get text from text area sharededitor
+
+
+  submit_button.addEventListener('click', () => {
+    let currentChar = document.querySelector('input[name="char"]')
+    let charIndex = document.querySelector('input[name="index_insert"]')
+    if (text.toString().length === 0 && currentChar.value.length === 1) {
+      text.insert(0, currentChar.value)
+      return
+    }
+    insertChar(text, parseInt(charIndex.value), currentChar.value)
+    disableInput(submit_button, DEFAULT_TIMEOUT)
+    disableInput(textarea, DEFAULT_TIMEOUT)
+    disableButton(submit_button, DEFAULT_TIMEOUT)
+  })
+  //write a function that adds event listener to textarea[ name="sharededitor" ]
+  //colors the textarea character at index with color red
+  textarea.addEventListener('click', (e) => {
+    let index = e.target.selectionStart
+    let char = text.toString().charAt(index)
+    e.target.setSelectionRange(index, index + 1)
+    let currentChar = document.querySelector('input[name="char"]')
+    let charIndex = document.querySelector('input[name="index_insert"]')
+    currentChar.value = char
+    charIndex.value = index
+    return { index, char }
+  })
+
+  // add event listener that disable select all for textarea[name="sharededitor"] 
+  textarea.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'a') {
+      alert('Select all is disabled')
+      e.preventDefault();
+    }
+  });
+  let isPlayConfett = true
+  textarea.addEventListener('keypress', (e) => {
+    // disable typing in textarea
+    e.preventDefault()
+    //only play confetti animation once using isPlayConfett
+    if (isPlayConfett) {
+      playConfetti()
+      isPlayConfett = false
+
     }
 
-    //write a function that adds event listener to textarea[ name="sharededitor" ]
-    //displays popup next to textarea with index of character and character
-    document.querySelector('textarea[name="sharededitor"]').addEventListener('click', (e) => {
-      let index = e.target.selectionStart
-      let char = text.toString().charAt(index)
-      let popup = document.createElement('div')
-      popup.style.position = 'absolute'
-      popup.style.backgroundColor = 'white'
-      popup.style.border = '1px solid black'
-      popup.style.padding = '10px'
-      popup.style.top = `${e.clientY + 20}px`
-      popup.style.left = `${e.clientX}px`
-      popup.innerHTML = `Index: ${index} Char: ${char}`
-      document.body.appendChild(popup)
-      setTimeout(() => {
-        popup.remove()
-      }, 1000)
+    // get current location of text cursor
+    const index = e.target.selectionStart;
+    e.target.setSelectionRange(index, index + 1)
+
+    if (e.key.length === 1) {
+      const index = e.target.selectionStart
+      const char = e.key
+      insertChar(text, index, char)
 
 
     }
-    )
+    // set cursor location to index
+    disableInput(textarea, 3000);
 
-    // <button class="btn btn-secondary btn-sm" name="insert_space" type="button">Insert Space</button>
-    // <button class="btn btn-secondary btn-sm" name="insert_return" type="button">Insert Return</button>
-    //add event listener that inserts space at cursor location using insertChar function
-    document.querySelector('button[name="insert_space"]').addEventListener('click', () => {
-      let index = textarea.selectionStart
-      text.insert(index, " ")
+  })
 
-      disableInput(document.querySelector('button[name="insert_space"]'), DEFAULT_TIMEOUT)
-    })
+  replace_text_button?.addEventListener('click', () => {
+    text.delete(0, text.toString().length)
+    text.insert(0, replace_text.value)
+  })
 
-    //add event listener to current_char where it selects all text in input
-    current_char.addEventListener('click', (e) => {
-      e.target.select()
-    })
-    //add event listener for current_char on enter key it inserts the value of current_char at cursor location
-    current_char.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        let index = textarea.selectionStart
-        text.insert(index, current_char.value)
 
-        disableInput(current_char, DEFAULT_TIMEOUT)
-        disableInput(textarea, DEFAULT_TIMEOUT)
+  function disableInput(element, time) {
+    //change mouse cursor to waiting cursor
+    element.style.cursor = 'wait'
+    //disable element
+    element.disabled = true
+    //change mouse cursor back to default cursor
+    setTimeout(() => {
+      element.style.cursor = 'default'
+      element.disabled = false
+
+    }, 2000)
+  }
+  let counter = 0;
+  //write a function that adds a timer's text to the button format: "Submit wait {} seconds"
+  function disableButton(element, time) {
+    element.disabled = true
+    counter = 0;
+    counter = time;
+    element.innerText = `Confirm`
+    setInterval(() => {
+
+      if (counter > 0) {
+        counter -= 1000
       }
-    })
+      element.innerText = `Confirm wait ${counter / 1000} seconds`
+    }
+      , 1000)
+
+    // element.innerText = `Confirm wait ${time} seconds`
+    setTimeout(() => {
+      element.disabled = false
+      element.innerText = 'Confirm'
+    }, time)
   }
 
+  //write a function that adds event listener to textarea[ name="sharededitor" ]
+  //displays popup next to textarea with index of character and character
+  document.querySelector('textarea[name="sharededitor"]').addEventListener('click', (e) => {
+    let index = e.target.selectionStart
+    let char = text.toString().charAt(index)
+    let popup = document.createElement('div')
+    popup.style.position = 'absolute'
+    popup.style.backgroundColor = 'white'
+    popup.style.border = '1px solid black'
+    popup.style.padding = '10px'
+    popup.style.top = `${e.clientY + 20}px`
+    popup.style.left = `${e.clientX}px`
+    popup.innerHTML = `Index: ${index} Char: ${char}`
+    document.body.appendChild(popup)
+    setTimeout(() => {
+      popup.remove()
+    }, 1000)
+
+
+  }
+  )
+
+  // <button class="btn btn-secondary btn-sm" name="insert_space" type="button">Insert Space</button>
+  // <button class="btn btn-secondary btn-sm" name="insert_return" type="button">Insert Return</button>
+  //add event listener that inserts space at cursor location using insertChar function
+  document.querySelector('button[name="insert_space"]').addEventListener('click', () => {
+    let index = textarea.selectionStart
+    text.insert(index, " ")
+
+    disableInput(document.querySelector('button[name="insert_space"]'), DEFAULT_TIMEOUT)
+  })
+
+  //add event listener to current_char where it selects all text in input
+  current_char.addEventListener('click', (e) => {
+    e.target.select()
+  })
+  //add event listener for current_char on enter key it inserts the value of current_char at cursor location
+  current_char.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      let index = textarea.selectionStart
+      text.insert(index, current_char.value)
+
+      disableInput(current_char, DEFAULT_TIMEOUT)
+      disableInput(textarea, DEFAULT_TIMEOUT)
+    }
+  })
+  //add a eventlistener when spacebar is pressed, and insert space at cursor location
+  document.addEventListener('keydown', (e) => {
+    if (e.key === ' ') {
+      let index = textarea.selectionStart
+      text.insert(index, " ")
+      disableInput(document.querySelector('button[name="insert_space"]'), DEFAULT_TIMEOUT)
+    }
+  })
+
+  //add a eventlistener when spacebar is pressed, and insert space at cursor location
+  document.addEventListener('keydown', (e) => {
+    if (e.key === ' ') {
+      let index = textarea.selectionStart
+      text.insert(index, " ")
+      disableInput(document.querySelector('button[name="insert_space"]'), DEFAULT_TIMEOUT)
+    }
+  })
+
+}
+
 // create a function that updates personal counter for number of letters typed, stored in localstorage, and loaded one page loads,  element id="personalCounter"
-function updatePersonalCounter() {
-      let counter = localStorage.getItem('counter') || 0
-      counter++
-      localStorage.setItem('counter', counter)
-      document.getElementById('personalCounter').innerText = counter
+function updatePersonalCounter(index = 1) {
+  let counter = localStorage.getItem('counter') || 0
+  counter+= index
+  localStorage.setItem('counter', counter)
+  document.getElementById('personalCounter').innerText = counter
 }
 
 // create a function for intially setting the personal counter
 function setPersonalCounter() {
-      let counter = localStorage.getItem('counter') || 0
-      document.getElementById('personalCounter').innerText = counter
+  let counter = localStorage.getItem('counter') || 0
+  document.getElementById('personalCounter').innerText = counter
 }
 
 
 //create a confetti animation using a library like confetti-js
 function playConfetti() {
-      //create a confetti animation
-      // https://www.kirilv.com/canvas-confetti/ for how to mess with the confetti config
-      var count = 200;
-      var defaults = {
-        origin: { y: 0.7 }
-      };
+  //create a confetti animation
+  // https://www.kirilv.com/canvas-confetti/ for how to mess with the confetti config
+  var count = 200;
+  var defaults = {
+    origin: { y: 0.7 }
+  };
 
-      function fire(particleRatio, opts) {
-        confetti({
-          ...defaults,
-          ...opts,
-          particleCount: Math.floor(count * particleRatio)
-        });
-      }
+  function fire(particleRatio, opts) {
+    confetti({
+      ...defaults,
+      ...opts,
+      particleCount: Math.floor(count * particleRatio)
+    });
+  }
 
-      fire(0.25, {
-        spread: 26,
-        startVelocity: 55,
-      });
-      fire(0.2, {
-        spread: 60,
-      });
-      fire(0.35, {
-        spread: 100,
-        decay: 0.91,
-        scalar: 0.8
-      });
-      fire(0.1, {
-        spread: 120,
-        startVelocity: 25,
-        decay: 0.92,
-        scalar: 1.2
-      });
-      fire(0.1, {
-        spread: 120,
-        startVelocity: 45,
-      });
+  fire(0.25, {
+    spread: 26,
+    startVelocity: 55,
+  });
+  fire(0.2, {
+    spread: 60,
+  });
+  fire(0.35, {
+    spread: 100,
+    decay: 0.91,
+    scalar: 0.8
+  });
+  fire(0.1, {
+    spread: 120,
+    startVelocity: 25,
+    decay: 0.92,
+    scalar: 1.2
+  });
+  fire(0.1, {
+    spread: 120,
+    startVelocity: 45,
+  });
 
-    }
+}
 function showPopup(visable) {
-      var popup = document.getElementById("users");
-      if (visable === true) {
-        popup.style.display = "block";
-      } else {
-        popup.style.display = "none";
-      }
-    }
+  var popup = document.getElementById("users");
+  if (visable === true) {
+    popup.style.display = "block";
+  } else {
+    popup.style.display = "none";
+  }
+}
 
-function insertChar(yDoc, offset, char) {
-  updatePersonalCounter()
-  // animatePersonalCounter()
-  triggerAnimation()
-      //add confetty animation everytime this function is called
-      if (yDoc.toString().length === 0) {
-        console.log('yDoc is empty')
-        yDoc.insert(offset, 1)
-        return
-      }
-      yDoc.insert(offset, char)
-      yDoc.delete(offset + 1, 1)
-    }
+function insertChar(doc_, offset, char) {
+ 
+  //add confetty animation everytime this function is called
+  if (doc_.toString().length === 0) {
+    console.log('doc_ is empty')
+    doc_.insert(offset, 1)
+    return
+  }
+  doc_.insert(offset, char)
+  doc_.delete(offset + 1, 1)
+  return
+
+  //delete char at offset
+}
 
 
 
 //write a function that gets the current mouse position and sends it to the server
 function sendMousePosition(awareness, mouseElements) {
-      document.addEventListener('mousemove', (e) => {
-        const { x, y } = e;
-        mouseElements[0].style.left = `${x}px`;
-        mouseElements[0].style.top = `${y}px`;
-        var id = awareness.doc.clientID
-        awareness.setLocalStateField("mouse", { x, y, id });
-      });
-    }
+  document.addEventListener('mousemove', (e) => {
+    const { x, y } = e;
+    mouseElements[0].style.left = `${x}px`;
+    mouseElements[0].style.top = `${y}px`;
+    var id = awareness.doc.clientID
+    awareness.setLocalStateField("mouse", { x, y, id });
+  });
+}
 
 main() 
