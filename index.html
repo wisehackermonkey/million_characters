@@ -35,21 +35,26 @@
   <div id="awarenessPointer"></div>
   <!-- Total char counter -->
    <div class="container text-center">
-    <p>Total Characters: <span id="totalCharCounter">0 </span>/1,000,000</p>
     </div>
   <div class="container text-center">
-    <!-- creat a  flex grid  with two rows, for the first row two horizontal stacks for title, and sub heading, for the second row  make 2 rows where contents are flush to both ends left is "made with ❤️ By oran C", and right counter "1,000,000 letter so far"  right bottom "you have typed 1000 letters"-->
-
-    <h1>One Million Letter Book</h1>
-    <p>
-      Lets write a book together. <br>
-      Each character you type will be saved.<br>
-      The final book will be published to amazon!<br>
-      Lets make some history!
-    </p>
-    <div class="container" style="text-align: center;">
-
+    <!-- create a bootstrap  grid  with two rows, first row stacked center aligned title "One Million Letter Book", and sub heading "(Typing a letter shows for everyone!)", second row flush ends :left "made with ❤️ By oran C", and right counter "1,000,000 letter so far"  :right "you have typed 1000 letters"-->
+    <div class="row">
+      <div class="col text-center">
+        <h1>One Million Letter Book</h1>
+        <h4>(Typing a letter shows for everyone!)</h4>
+      </div>
     </div>
+    <div class="row">
+      <div class="col text-left">made with ❤️ By oran C</div>
+      <div class="col text-right">
+        <p><span id="totalCharCounter">0 </span>/1,000,000 letters typed</p>
+        <p>you have typed <span id="personalCounter">1000</span> letters</p>
+
+      </div>
+    </div>
+    
+     
+
     <textarea class="form-control" name="sharededitor" id="" cols="30" rows="10" placeholder="...loading..."></textarea>
     <p class="paragraph"> </p>
     <div class="jump"> <input type="number" id="jump_num" max="1000000"  min="0" placeholder="Line Numbe" style="width: 106px;"> <button type="button" class="btn btn-primary" id="jump_button">Jump!</button></div>

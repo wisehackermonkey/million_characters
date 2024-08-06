@@ -163,6 +163,7 @@ qwertyuiopasdfghjklzxcvbnm ,0123456789
   - you have placed log 10 characters, congrats youve placed floor (PI 🥧) characters
 - 888888 letters are ⌨️ typed!
 - create a logo?
+- add "final book published on amazon" "Will be published on Amazon books"
 # helpful links in dev
 - [y-sweet/examples/vanilla at main · jamsocket/y-sweet](https://github.com/jamsocket/y-sweet/tree/main/examples/vanilla)
 - [Awareness | Yjs Docs](https://docs.yjs.dev/api/about-awareness)

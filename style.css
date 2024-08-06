@@ -34,7 +34,10 @@ body, p, a, div, span, button, input {
 
 p {
   /* make italics */
+}
+h4 {
   font-style: italic;
+  font-size: 1rem;
 }
 
 /* change textarea font to size 10px */
@@ -80,4 +83,11 @@ input[type="submit"] {
 .form-control{
   line-height: 21.5px;
   font-size: 1rem;
+}
+
+.row{ 
+  /* add bottom padding */
+  /* padding-bottom:5px; */
+  /* margin-bottom: 0px; */
+  /* margin: 0px; */
 }

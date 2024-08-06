@@ -27,7 +27,7 @@ async function readTextFile(file) {
 var test_sample
 
 async function main() {
-  
+  setPersonalCounter()
   const clientToken = { url: `ws://${window.location.hostname}:8080/doc/ws`, docId: 'docId' }//await res.json()
 
 
@@ -362,6 +362,20 @@ async function main() {
     })
   }
 
+// create a function that updates personal counter for number of letters typed, stored in localstorage, and loaded one page loads,  element id="personalCounter"
+function updatePersonalCounter() {
+      let counter = localStorage.getItem('counter') || 0
+      counter++
+      localStorage.setItem('counter', counter)
+      document.getElementById('personalCounter').innerText = counter
+}
+
+// create a function for intially setting the personal counter
+function setPersonalCounter() {
+      let counter = localStorage.getItem('counter') || 0
+      document.getElementById('personalCounter').innerText = counter
+}
+
 
 //create a confetti animation using a library like confetti-js
 function playConfetti() {
@@ -414,7 +428,7 @@ function showPopup(visable) {
     }
 
 function insertChar(yDoc, offset, char) {
-
+  updatePersonalCounter()
       //add confetty animation everytime this function is called
       if (yDoc.toString().length === 0) {
         console.log('yDoc is empty')
