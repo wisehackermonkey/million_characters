@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './style.css'
+import 'animate.css';
 // import npm bootstrap
 import * as Y from 'yjs'
 import * as awarenessProtocol from 'y-protocols/awareness.js'
@@ -25,9 +26,29 @@ async function readTextFile(file) {
   return text
 }
 var test_sample
+function triggerAnimation() {
+  const element = document.getElementById('personalCounter');
+  element.classList.remove('animate__animated', 'animate__shakeY', "animate__fast");  // Reset the animation
+
+  // Trigger reflow to reset the animation
+  void element.offsetWidth;
+
+  element.classList.add('animate__animated', 'animate__shakeY', "animate__fast");  // Add the animation class again
+}
+function animateTextArea() {
+  const element = document.getElementById('sharededitor');
+  element.classList.remove('animate__animated', 'animate__swing', "animate__fast");  // Reset the animation
+
+  // Trigger reflow to reset the animation
+  void element.offsetWidth;
+  element.style.setProperty('--animate-duration', '0.1s');
+  element.classList.add('animate__animated', 'animate__swing', "animate__fast");  // Add the animation class again
+}
 
 async function main() {
   setPersonalCounter()
+  triggerAnimation()
+  animateTextArea()
   const clientToken = { url: `ws://${window.location.hostname}:8080/doc/ws`, docId: 'docId' }//await res.json()
 
 
@@ -429,6 +450,8 @@ function showPopup(visable) {
 
 function insertChar(yDoc, offset, char) {
   updatePersonalCounter()
+  // animatePersonalCounter()
+  triggerAnimation()
       //add confetty animation everytime this function is called
       if (yDoc.toString().length === 0) {
         console.log('yDoc is empty')
