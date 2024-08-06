@@ -216,21 +216,7 @@ async function main() {
     })
   })
 
-  //disable delete key for textarea
-  textarea.addEventListener('keydown', (e) => {
-    if (e.key === 'Backspace') {
-      insertChar(text, e.target.selectionStart, '', true)
-      updatePersonalCounter() 
-      triggerAnimation()
-      if (option == true) {
-        doc_.delete(offset, 1)
-    
-        return
-      }
-      disableInput(textarea, DEFAULT_TIMEOUT)
-      e.preventDefault()
-    }
-  })
+  
 
   text.observe((yEvent) => {
     textarea.value = text.toString()
@@ -240,7 +226,7 @@ async function main() {
   // <button type="button"  onclick="setText()">Submit</button>
   // for button onclick add event listener that calls text.set('text', textarea.value)
   //get text from text area sharededitor
-
+  
 
   submit_button.addEventListener('click', () => {
     let currentChar = document.querySelector('input[name="char"]')
@@ -254,53 +240,10 @@ async function main() {
     disableInput(textarea, DEFAULT_TIMEOUT)
     disableButton(submit_button, DEFAULT_TIMEOUT)
   })
-  //write a function that adds event listener to textarea[ name="sharededitor" ]
-  //colors the textarea character at index with color red
-  textarea.addEventListener('click', (e) => {
-    let index = e.target.selectionStart
-    let char = text.toString().charAt(index)
-    e.target.setSelectionRange(index, index + 1)
-    let currentChar = document.querySelector('input[name="char"]')
-    let charIndex = document.querySelector('input[name="index_insert"]')
-    currentChar.value = char
-    charIndex.value = index
-    return { index, char }
-  })
-
-  // add event listener that disable select all for textarea[name="sharededitor"] 
-  textarea.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.key === 'a') {
-      alert('Select all is disabled')
-      e.preventDefault();
-    }
-  });
+  
+  
   let isPlayConfett = true
-  textarea.addEventListener('keypress', (e) => {
-    // disable typing in textarea
-    e.preventDefault()
-    //only play confetti animation once using isPlayConfett
-    if (isPlayConfett) {
-      playConfetti()
-      isPlayConfett = false
-
-    }
-
-    // get current location of text cursor
-    const index = e.target.selectionStart;
-    e.target.setSelectionRange(index, index + 1)
-
-    if (e.key.length === 1) {
-      const index = e.target.selectionStart
-      const char = e.key
-      insertChar(text, index, char)
-
-
-    }
-    // set cursor location to index
-    disableInput(textarea, 3000);
-
-  })
-
+  
   replace_text_button?.addEventListener('click', () => {
     text.delete(0, text.toString().length)
     text.insert(0, replace_text.value)
@@ -367,25 +310,69 @@ async function main() {
  
 
   //add event listener to current_char where it selects all text in input
-  current_char.addEventListener('click', (e) => {
-    e.target.select()
-  })
-  //add event listener for current_char on enter key it inserts the value of current_char at cursor location
-  current_char.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      let index = textarea.selectionStart
-      text.insert(index, current_char.value)
+  // current_char.addEventListener('click', (e) => {
+  //   e.target.select()
+  // })
+  // Merge event listeners for textarea and current_char
+  textarea.addEventListener('keydown', (e) => {
 
-      disableInput(current_char, DEFAULT_TIMEOUT)
+    var offset  = e.target.selectionStart;
+    e.target.setSelectionRange(offset, offset + 1)
+
+
+   
+
+     // Disable typing in textarea and insert character at cursor location
+     if (e.key.length === 1 && e.Back !== 'Backspace') {
+      const char = e.key
+      insertChar(text, offset, char)
+       
+   }
+
+    // Disable delete key for textarea
+    if (e.key === 'Backspace') { 
+      
+      updatePersonalCounter()
+      triggerAnimation()
+      text.delete(offset, 1)
+    }
+    
+    // Disable select all for textarea[name="sharededitor"]
+    if (e.ctrlKey && e.key === 'a') {
+      e.preventDefault();
+      alert('Select all is disabled')
+    }
+    
+    // Insert space at cursor location when spacebar is pressed
+    if (e.key === ' ' || e.key === 'Spacebar') {
+      text.insert(offset, " ")
+    }
+    
+    //filter out  key is not a control key, insert the key at cursor location
+    const keyboardCharacters = [
+      'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', // Alphabet
+      'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', // Uppercase Alphabet
+      '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', // Numbers
+      '`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', // Special characters row 1
+      '[', ']', '{', '}', '\\', '|', ';', ':', '\'', '"', ',', '<', '.', '>', '/', '?' // Special characters row 2
+    ];
+    if (keyboardCharacters.includes(e.key)) {
+
+      if (isPlayConfett) {
+        playConfetti()
+        isPlayConfett = false
+      }
       disableInput(textarea, DEFAULT_TIMEOUT)
     }
   })
-  //add a eventlistener when spacebar is pressed, and insert space at cursor location
-  document.addEventListener('keydown', (e) => {
-    if (e.key === ' ') {
-      let index = textarea.selectionStart
-      text.insert(index, " ")
-      disableInput(document.querySelector('button[name="insert_space"]'), DEFAULT_TIMEOUT)
+
+  // Add event listener for current_char on enter key to insert the value of current_char at cursor location
+  current_char.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      let offset = textarea.selectionStart
+      text.insert(offset, current_char.value)
+      disableInput(current_char, DEFAULT_TIMEOUT)
+      disableInput(textarea, DEFAULT_TIMEOUT)
     }
   })
 
@@ -398,7 +385,7 @@ function updatePersonalCounter(index = 1) {
   let counter = localStorage.getItem('counter') || 0
   counter+= index
   localStorage.setItem('counter', counter)
-  document.getElementById('personalCounter').innerText = counter
+  document.getElementById('personalCounter').innerText = counter.toString()
 }
 
 // create a function for intially setting the personal counter

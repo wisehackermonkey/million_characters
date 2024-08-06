@@ -64,17 +64,19 @@ input[type="submit"] {
 /* make class floating  */
 
 .popup {
-  position: absolute; /* Or 'fixed' if you want it to stay in place when scrolling */
-   
-  width: 227px;  
-  padding: 20px;
-  background-color: #e1e1e100; 
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Ensure it is on top */
-  display: none; /* Initially hidden */
-  float: left;
+  position: fixed;
   bottom: 15px;
   left: 15px;
+  z-index: 1000;
+  padding: 7px;
+  background-color: #e1e1e100; 
+  /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.137);
+  z-index: 1000; /* Ensure it is on top */
+  display: none; /* Initially hidden */
+  /* float: left; */
+  /* bottom: 15px; */
+  /* left: 15px; */
 }
 
 .jump_num{
