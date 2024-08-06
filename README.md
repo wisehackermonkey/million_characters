@@ -146,15 +146,23 @@ qwertyuiopasdfghjklzxcvbnm ,0123456789
 - add startup script.sh
 - create a service daemon
 - fix delete
-- add total char counter
-   - of non space characters (arch question: space or no space?)
-- show spaces
+- x add total char counter
+ - show spaces
 - fix mouse perposinality with screen size
 - add skip to line number
 
 # Juice & Bugs 
 - change font
--
+- fix char count :non space
+- line number jump
+- 'YOU have typed X letters'
+- add horizonta line
+- make line number bottom left float
+- current selected char small 
+- confetti message "youve placed 1 character!, 
+  - you have placed log 10 characters, congrats youve placed floor (PI 🥧) characters
+- 888888 letters are ⌨️ typed!
+- create a logo?
 # helpful links in dev
 - [y-sweet/examples/vanilla at main · jamsocket/y-sweet](https://github.com/jamsocket/y-sweet/tree/main/examples/vanilla)
 - [Awareness | Yjs Docs](https://docs.yjs.dev/api/about-awareness)

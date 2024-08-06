@@ -4,9 +4,38 @@
   color: #fff;       
 } */
 /* use google fonts roboto for h1, p, textarea */
-h1, p, textarea {
-  font-family: 'Roboto', sans-serif;
-} 
+@font-face {
+    font-family: "Sunset Demibold";
+    src: url("fonts/sunset-demibold.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Apercu Pro Bold";
+    src: url("https://db.onlinewebfonts.com/t/bbecd6e12f97db669f1cbab12fc6d06b.eot");
+    src: url("https://db.onlinewebfonts.com/t/bbecd6e12f97db669f1cbab12fc6d06b.eot?#iefix") format("embedded-opentype"),
+         url("https://db.onlinewebfonts.com/t/bbecd6e12f97db669f1cbab12fc6d06b.woff2") format("woff2"),
+         url("https://db.onlinewebfonts.com/t/bbecd6e12f97db669f1cbab12fc6d06b.woff") format("woff"),
+         url("https://db.onlinewebfonts.com/t/bbecd6e12f97db669f1cbab12fc6d06b.ttf") format("truetype"),
+         url("https://db.onlinewebfonts.com/t/bbecd6e12f97db669f1cbab12fc6d06b.svg#Apercu Pro Bold") format("svg");
+}
+
+/* Apply Sunset Demibold to big titles */
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Sunset Demibold", sans-serif;
+}
+
+/* Apply Apercu Pro Bold to the rest of the text */
+body, p, a, div, span, button, input {
+    font-family: "Apercu Pro Bold", sans-serif;
+    font-size: 1rem;
+}
+
+p {
+  /* make italics */
+  font-style: italic;
+}
 
 /* change textarea font to size 10px */
 @media (min-width: 600px) {
@@ -47,4 +76,8 @@ input[type="submit"] {
 .jump_num{
   /* set width to 10ch */
   width: 10ch;
+}
+.form-control{
+  line-height: 21.5px;
+  font-size: 1rem;
 }
