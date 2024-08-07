@@ -1,0 +1,15 @@
+
+[Unit]
+Description=Y-Sweet Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/npx y-sweet@latest serve /home/o/github/million_characters/persist --host 0.0.0.0 --port 8080
+WorkingDirectory=/home/o/github/million_characters/persist
+Restart=always
+User=o 
+Group=o
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

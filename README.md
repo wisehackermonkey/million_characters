@@ -13,11 +13,81 @@ npm run dev
 ```bash
 # npm run server
 npx y-sweet@latest serve ./persist --host 0.0.0.0 --port 8080
+
 ```
 
 ## Open [localhost:3000](http://localhost:3000) in your browser.
 ![alt text](img/image.png)
 ## Success!
+
+# Prod install
+## install caddy
+```bash
+sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+sudo apt update
+sudo apt install caddy
+caddy --help
+```
+# run 
+```bash
+sudo cady run
+```
+# stop
+```bash
+sudo cady stop
+```
+# reload
+```bash
+sudo cady reload
+```
+
+# build 
+```bash
+npm install
+npm run build
+```
+# Create system service
+```bash
+
+npx y-sweet@latest serve /home/o/github/million_characters/persist --host 0.0.0.0 --port 8080
+sudo nano /etc/systemd/system/y-sweet.service
+
+```
+# Copy this to the file
+```bash
+[Unit]
+Description=Y-Sweet Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/npx y-sweet@latest serve /home/o/github/million_characters/persist --host 0.0.0.0 --port 8080
+WorkingDirectory=/home/o/github/million_characters/persist
+Restart=always
+User=o 
+Group=o
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+
+```
+# if everything was done correctly
+```bash
+sudo systemctl daemon-reload
+```
+# start the sevice
+```bash
+sudo systemctl start y-sweet.service
+sudo systemctl enable y-sweet.service
+
+```
+# how to check if its workdin
+```bash
+sudo systemctl start y-sweet.service
+```
+![alt text](img/image10.png)
 
 ----
 
