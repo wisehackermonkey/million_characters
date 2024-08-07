@@ -217,19 +217,31 @@ qwertyuiopasdfghjklzxcvbnm ,0123456789
 - add skip to line number
 
 # Juice & Bugs 
-- change font
-- fix char count :non space
-- line number jump
-- 'YOU have typed X letters'
+- [x] change font
+- [x] line number jump
+-[x]  'YOU have typed X letters'
+-[x]  make line number bottom left float
+- [x]  888888 letters are ⌨️ typed!
+- [x] add "final book published on amazon" "Will be published on Amazon books"
 - add horizonta line
-- make line number bottom left float
+- create a logo?
+- ~ fix char count :non space
 - current selected char small 
 - confetti message "youve placed 1 character!, 
   - you have placed log 10 characters, congrats youve placed floor (PI 🥧) characters
-- 888888 letters are ⌨️ typed!
-- create a logo?
-- add "final book published on amazon" "Will be published on Amazon books"
-- add slowly following mouse cursor, with nice tweening
+- ~ add slowly following mouse cursor, with nice tweening
+- add CLOCK with countdown next to cursor
+# sprint two after feedback
+- remove 1 character at a time
+- make it clear to add your own
+  - add "Please Edit the page!, and have fun"
+
+- "make font big"
+- add amazon logo book
+- ditch books
+- fix chrome book bug
+- add sound effect of hovering
+- add tutorial
 # helpful links in dev
 - [y-sweet/examples/vanilla at main · jamsocket/y-sweet](https://github.com/jamsocket/y-sweet/tree/main/examples/vanilla)
 - [Awareness | Yjs Docs](https://docs.yjs.dev/api/about-awareness)

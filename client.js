@@ -16,6 +16,8 @@ const replace_text = document.querySelector('textarea[name="replacetext"]')
 const replace_text_button = document.querySelector('button[name="replacetextbutton"]')
 const current_char = document.querySelector('input[name="char"]')
 const total_char = document.querySelector('#totalCharCounter')
+const jump_button = document.getElementById('jump_button')
+const jump_num = document.getElementById('jump_num')
 const DEFAULT_DOCUMENT = 'demo'
 const DEFAULT_TIMEOUT = 3/*seconds*/ * 1000;//seconds
 
@@ -117,7 +119,7 @@ async function main() {
   var users = {}
   // make a dictionary for each clientID and their mouse pointer
   // for each user in awareness, create a mouse pointer, and store reference in users
-  awareness.getStates().values().forEach(state => {
+  awareness.getStates().forEach(state => {
     if (state.mouse) {
       const { x, y } = state.mouse;
       //add createAwarenessPointer(state.user.color,x,y) by client id
@@ -143,7 +145,7 @@ async function main() {
     // Map each awareness state to a dom-string
     const strings = []
 
-    awareness.getStates().values().forEach(state => {
+    awareness.getStates().forEach(state => {
       //for all mouse in state, draw createAwarenessPointer
       if (state.mouse) {
         const { x, y } = state.mouse;
@@ -159,7 +161,7 @@ async function main() {
       }
     })
 
-    awareness.getStates().values().forEach(state => {
+    awareness.getStates().forEach(state => {
       if (state.user) {
         strings.push(`<div style="color:${state.user.color};">${state.user.name}</div>`)
       }
@@ -177,15 +179,13 @@ async function main() {
     var pointer = mouseElements[0]
 
     const strings = []
-    awareness.getStates().values().forEach(state => {
+    awareness.getStates().forEach(state => {
       //if state.mouse is not null
       if (state.mouse) {
         const { x, y } = state.mouse;
         pointer.style.left = `${x}px`;
         pointer.style.top = `${y}px`;
-        // console.log('mouse', { x, y });
-        console.log(".")
-      }
+       }
 
       if (state.user) {
         strings.push(`<div class="floating"style="color:${state.user.color};">User: ${state.user.name}</div>`)
@@ -194,7 +194,7 @@ async function main() {
     })
 
 
-    // const states = awareness.getStates().values();
+    // const states = awareness.getStates();
     // for (const clientId in states) {
     //   const state = states[clientId];
 
@@ -204,12 +204,10 @@ async function main() {
 
   awareness.on('change', () => {
     // Map each awareness state to a dom-string
-    // console.log("change") 
-    const strings = []
+     const strings = []
 
-    awareness.getStates().values().forEach(state => {
-      // console.log(state)
-      if (state.user) {
+    awareness.getStates().forEach(state => {
+       if (state.user) {
         strings.push(`<div style="color:${state.user.color};">${state.user.name}</div>`)
       }
       document.querySelector('#users').innerHTML = strings.join('')
@@ -379,15 +377,29 @@ async function main() {
     }
   })
 
-
+  //add event listener for id="jump_button" when pressed grab value of input id="jump_num" and set the scroll line number (textarea.scrollTop) for textarea to input id="jump_num"vale
+  jump_button.addEventListener('click', () => {
+    
+    textarea.scrollTop = jump_num.value
+  })
+  jump_num.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      textarea.scrollTop = jump_num.value
+    }
+  }
+  )
+  // jump_button.addEventListener('click', (e) => {
+  //   let jump_num = document.getElementById('jump_num').value
+  //   textarea.setSelectionRange(jump_num, jump_num)
+  // }) 
 
 }
 
 // create a function that updates personal counter for number of letters typed, stored in localstorage, and loaded one page loads,  element id="personalCounter"
 function updatePersonalCounter(index = 1) {
-  let counter = parseInt(localStorage.getItem('counter')|| 0)
+  let counter = parseInt(localStorage.getItem('counter') || 0)
   counter++
-  localStorage.setItem('counter', counter )
+  localStorage.setItem('counter', counter)
   document.getElementById('personalCounter').innerText = counter
 }
 
@@ -452,8 +464,7 @@ function insertChar(doc_, offset, char) {
 
   //add confetty animation everytime this function is called
   if (doc_.toString().length === 0) {
-    console.log('doc_ is empty')
-    doc_.insert(offset, 1)
+     doc_.insert(offset, 1)
     return
   }
   doc_.insert(offset, char)
