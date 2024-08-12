@@ -230,8 +230,14 @@ qwertyuiopasdfghjklzxcvbnm ,0123456789
 - create a logo?
 - add "final book published on amazon" "Will be published on Amazon books"
 - add slowly following mouse cursor, with nice tweening
+
+- fixed delete
 # helpful links in dev
 - [y-sweet/examples/vanilla at main · jamsocket/y-sweet](https://github.com/jamsocket/y-sweet/tree/main/examples/vanilla)
 - [Awareness | Yjs Docs](https://docs.yjs.dev/api/about-awareness)
 - [A five minute guide to make an editor collaborative | Yjs Docs](https://docs.yjs.dev/getting-started/a-collaborative-editor)
 # License MIT @ oran collins 2024
+
+
+Questions:
+should i spin up new editor integration or go with google sheets
