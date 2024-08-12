@@ -35,11 +35,7 @@
 
     import { driver } from "driver.js";
     import "driver.js/dist/driver.css";
-
-//     const driverObj = driver({
-//   overlayColor: 'red'
-// });
-
+ 
 const driverObj = driver({
   showProgress: true,
   steps: [
@@ -58,6 +54,16 @@ const driverObj = driver({
     driverObj.drive();
 
 
+    //write a function that detects if the user is on mobile
+    function isMobile() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+    // alert(isMobile())
+    // 
+
+    if (isMobile()) {
+      document.getElementById('mobile_warning').style.display = 'block';
+    }
   </script>
 
   <script>
@@ -97,8 +103,14 @@ const driverObj = driver({
 </head>
 
 <body class="confetti" >
+  <!-- set mobile_warning to display none -->
+ <div id="mobile_warning" style="display: none;">
+  <!-- display "Looks like your on mobile, click here to get started https://docs.google.com/document/d/1Nk6T-ZpnVdbRhOD6yWt3A5eKliJUwhvhI8o8E2OYQuc/edit?usp=sharing" -->
+  <div class="alert alert-warning" role="alert">
+    Unfortunately, our document doesn't work on mobile. As a workaround, click this link <a href="https://docs.google.com/document/d/1Nk6T-ZpnVdbRhOD6yWt3A5eKliJUwhvhI8o8E2OYQuc/edit?usp=sharing">here</a> then click ✏️ to edit to get started. 
 
-  
+</div>
+</div>
 
   <!-- <div class="container text-center"> -->
   <!-- create a bootstrap  grid  with two rows, first row stacked center aligned title "One Million Letter Book", and sub heading "(Typing a letter shows for everyone!)", second row flush ends :left "made with ❤️ By oran C", and right counter "1,000,000 letter so far"  :right "you have typed 1000 letters"-->
