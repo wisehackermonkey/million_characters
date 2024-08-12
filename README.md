@@ -257,3 +257,14 @@ qwertyuiopasdfghjklzxcvbnm ,0123456789
 
 Questions:
 should i spin up new editor integration or go with google sheets
+ NO, go with google sheets
+
+
+ # issues from user feedback
+- explintion
+  - add next word, dont delete pervious words.
+- what should the book be about? i setence
+- add amazon logo with book for graphic
+
+- put author in html
+ - dicks spam, DELETETION
