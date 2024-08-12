@@ -49,13 +49,11 @@ const driverObj = driver({
         title: 'Instructions',
         description: 'Continue the next word in the book',
       }},
-    // { element: '#rules', popover: { title: 'Rules', description: 'Please take second' } },
-    { element: '#do', popover: { title: "Rules: Please DO", description: '' } },
-    { element: '#dont', popover: { title: "Rules: DONT", description: '' } },
-    { element: '#amazon', popover: { title: "book on amazon", description: 'After the timer runs out what is left will be compiled into a book on amazon!' } },
-    { element: '#personalCounter', popover: { title: "NOTE", description: 'Currently we have this time left' } },
+     { element: '#personalCounter', popover: { title: "book on amazon", description: 'After the timer runs out what is left will be compiled into a book on amazon!' } },
+    { element: '#rules', popover: { title: "Rules: IMPORTANT", description: '' } },
+    { element: '#googeldoc', popover: { title: "Want your name in the credit?", description: 'Scroll to end of book, and add your name under authors' } },
 
-    { element: '#googeldoc', popover: { title: "Lets Get writing!", description: '' } },
+    { element: '#personalCounter', popover: { title: "Clock is ticking! Get to writing!", description: '' } },
   ]
 }); 
     driverObj.drive();
@@ -124,16 +122,16 @@ const driverObj = driver({
 
   </div>
   <footer class="text-center">
-    <div class="container">
+    <div class="container" id="rules">
       <div class="row" >
-        <div class="col text-left">
+        <div class="col text-left" >
           
           <h3>DO:</h1>
-            <h5  id="do">Add to the story, be creative, fix spelling errors, comment helpfully </h5>
+            <h5  i>Add to the story, be creative, fix spelling errors, comment helpfully </h5>
           </div>
           <div class="col text-right" >
             <h5>DONT:</h5>
-            <h5 id="dont">Dont delete pervious words, NO images 🖼️,be mean, or spam</h5>
+            <h5 >Dont delete pervious words, NO images 🖼️,be mean, or spam</h5>
         </div>
       </div>
       <div class="row">
@@ -144,7 +142,7 @@ const driverObj = driver({
     <div style="opacity: 0.5; font-size: xx-small;"> fonts used: <a href="https://www.onlinewebfonts.com/icon"
         style="font-size: xx-small;">Apercu Pro Bold</a>, <a
         href="https://www.dafontfree.net/sunset-demibold-regular-font/f23705.htm" style="font-size: xx-small;">sunset
-        demibold</a>  Report a bug to oranbusiness+bookproject@gmail.com</div>
+        demibold</a>  Report a bug to <a href="mailto:oranbusiness+bookproject@gmail.com" style="font-size: xx-small;">oranbusiness+bookproject@gmail.com</a>, inspired by  <a href="https://onemillioncheckboxes.com/" style="font-size: xx-small;" >onemillioncheckboxes.com</a></div>
 
     <hr>
           <p> project not assosiated with amazon.</p>
