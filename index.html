@@ -47,7 +47,7 @@ const driverObj = driver({
     { element: '#googeldoc', popover: {
         align: "center",
         title: 'How to write',
-        description: 'Add the next word to the book, try keeping the story going',
+        description: 'Continue the next word in the book',
       }},
     // { element: '#rules', popover: { title: 'Rules', description: 'Please take second' } },
     { element: '#do', popover: { title: "Rules: Please DO", description: '' } },
@@ -105,28 +105,28 @@ const driverObj = driver({
       <!-- <h4 class="alert-heading">Welcome to the One Million Character Book!</h4> -->
       <div class="container text-center">
         <!-- create a bootstrap  grid  with two rows, first row stacked center aligned title "One Million Letter Book", and sub heading "(Typing a letter shows for everyone!)", second row flush ends :left "made with ❤️ By oran C", and right counter "1,000,000 letter so far"  :right "you have typed 1000 letters"-->
-        <div class="row" id="success" >
-          <div class="col text-center">
+        <!-- <div class="row" id="success" > -->
+          <!-- <div class="col text-center"> -->
             <h1>One Million Word Book</h1>
             <h4 id="amazon">Become a published author! Final draft gets published to <img src="amazon-logo.jpg" alt="Amazon Logo"
                 width="25" height="24"> amazon.com </h4>
 
-          </div>
-        </div>
+          <!-- </div>
+        </div> -->
 
-        <p>The goal is to reach one million words.</p><p>Task: Continue the next word in the book.</p>
-
-        <div class="row" >
-          <div class="col text-left">
-
+        
+        <!-- <div class="row" >
+          <div class="col text-left"> -->
+            
             <!-- <h3>DO:</h1> -->
-            <h3  id="do">be creative, helpful comments, fix spelling errors, add to the story</h3>
-          </div>
-          <div class="col text-right" >
-            <!-- <h3>DONT:</h3> -->
-            <h3 id="dont">Dont delete pervious words, be mean, or spam</h3>
-          </div>
-        </div>
+              <h5  id="do">be creative, helpful comments, fix spelling errors, add to the story</h5>
+            <!-- </div> -->
+            <!-- <div class="col text-right" > -->
+              <!-- <h5>DONT:</h5> -->
+              <h5 id="dont">Dont delete pervious words, be mean, or spam</h5>
+              <p>The goal write a one million word book.</p>
+          <!-- </div>
+        </div> -->
 
       </div>
     </div>
@@ -142,12 +142,12 @@ const driverObj = driver({
     <!-- <h3 id="personalCounter"> Time Remaining Loading.. </h3>
           -->
     <h3 id="personalCounter" data-toggle="tooltip" title="This shows the time remaining"> Time Remaining Loading.. </h3>
-    <p>Made with 🌮's by <a href="https://oransblog.com/">oran C</a>
+    <p>Made with 🌮's by <a href="https://oransblog.com/">oran C</a></p>
 
     <div style="opacity: 0.5; font-size: xx-small;"> fonts used: <a href="https://www.onlinewebfonts.com/icon"
         style="font-size: xx-small;">Apercu Pro Bold</a>, <a
         href="https://www.dafontfree.net/sunset-demibold-regular-font/f23705.htm" style="font-size: xx-small;">sunset
-        demibold</a> </div>
+        demibold</a>  Report a bug to oranbusiness+bookproject@gmail.com</div>
 
     <hr>
     <!-- create a iframe of this link https://docs.google.com/document/d/1Nk6T-ZpnVdbRhOD6yWt3A5eKliJUwhvhI8o8E2OYQuc/edit?usp=sharing -->
@@ -159,6 +159,18 @@ const driverObj = driver({
 
 
   </div>
+  <footer class="text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <p> project not assosiated with amazon.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+        
+ 
 </body>
 
 </html>
