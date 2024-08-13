@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 3000",
-    "build": "vite build",
+    "build-local": "vite build ",
+    "build": "vite build --outDir /usr/share/caddy",
     "watch": "nodemon --exec 'npm run build' --watch index.html",
     "lint": "eslint ",
     "format": "prettier --write \"**/*.js\""
