@@ -268,3 +268,10 @@ should i spin up new editor integration or go with google sheets
 
 - put author in html
  - dicks spam, DELETETION
+
+
+# Finalize project
+- get Domain working
+  - https with caddy
+  - pick domain
+    - buy domain   

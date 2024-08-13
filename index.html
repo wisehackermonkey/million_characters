@@ -11,7 +11,7 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script defer data-domain="onemillionwordbook.com" src="https://plausible.io/js/script.js"></script>
+  <script defer data-domain="internetwritesastory.com" src="https://plausible.io/js/script.js"></script>
 
   <script>
 
@@ -42,7 +42,7 @@ const driverObj = driver({
     { element: '#googeldoc', popover: {
         align: "center",
         title: 'Instructions',
-        description: 'Continue the next word in the book',
+        description: 'Continue writing the book where the last person left off',
       }},
      { element: '#personalCounter', popover: { title: "book on amazon", description: 'After the timer runs out what is left will be compiled into a book on amazon!' } },
     { element: '#rules', popover: { title: "Rules: IMPORTANT", description: '' } },
@@ -73,7 +73,7 @@ const driverObj = driver({
       return Math.floor(Math.abs(end_date - time))
     }
 
-    let end_date = 1723618800;
+    let end_date = 1723791600; //08/16/2024 12:00:00 AM
     // create a function that updates  id=personalCounter the epoch_date every second using format DD:HH:MM:SS counts down from 48 hours
     let element = document.getElementById('personalCounter');
     // element.innerHTML = "workds"
@@ -156,10 +156,11 @@ const driverObj = driver({
     <div style="opacity: 0.5; font-size: xx-small;"> fonts used: <a href="https://www.onlinewebfonts.com/icon"
         style="font-size: xx-small;">Apercu Pro Bold</a>, <a
         href="https://www.dafontfree.net/sunset-demibold-regular-font/f23705.htm" style="font-size: xx-small;">sunset
-        demibold</a>  Report a bug to <a href="mailto:oranbusiness+bookproject@gmail.com" style="font-size: xx-small;">oranbusiness+bookproject@gmail.com</a>, inspired by  <a href="https://onemillioncheckboxes.com/" style="font-size: xx-small;" >onemillioncheckboxes.com</a></div>
+        demibold</a>  Report a bug to <a href="mailto:contact@internetwritesastory.com" style="font-size: xx-small;">contact@internetwritesastory.com</a>, inspired by  <a href="https://onemillioncheckboxes.com/" style="font-size: xx-small;" >onemillioncheckboxes.com</a></div>
 
     <hr>
           <p> project not assosiated with amazon.</p>
+          <a href="https://www.buymeacoffee.com/oran" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
         </div>
       </div>
     </div>
