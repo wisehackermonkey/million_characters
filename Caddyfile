@@ -1,4 +1,5 @@
-:80 {
-	root * /home/o/github/million_characters/dist
-	file_server
+internetwritesastory.com {
+    root * /home/o/github/million_characters/dist
+    file_server
+    tls contact@internetwritesastory.com
 }
