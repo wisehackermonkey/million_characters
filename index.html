@@ -27,6 +27,22 @@
       right: 15px;
       z-index: 1000;
     }
+    .mobile_warning
+    {
+      display: none;
+      /* display centered and cover full screen */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      /* background-color: rgba(0, 0, 0, 0.5); */
+      z-index: 1000;
+      border: 2px solid black;
+      border-radius: 10%;
+   
+    }
   </style>
   <script type="module">
     import 'bootstrap/dist/css/bootstrap.min.css'
@@ -35,45 +51,71 @@
 
     import { driver } from "driver.js";
     import "driver.js/dist/driver.css";
- 
-const driverObj = driver({
-  showProgress: true,
-  steps: [
-    { element: '#googeldoc', popover: {
-        align: "center",
-        title: 'Instructions',
-        description: 'Continue writing the book where the last person left off',
-      }},
-     { element: '#personalCounter', popover: { title: "book on amazon", description: 'After the timer runs out what is left will be compiled into a book on amazon!' } },
-    { element: '#rules', popover: { title: "Rules: IMPORTANT", description: '' } },
-    { element: '#googeldoc', popover: { title: "Want your name in the credit?", description: 'Scroll to end of book, and add your name under authors' } },
-
-    { element: '#personalCounter', popover: { title: "Clock is ticking! Get to writing!", description: '' } },
-  ]
-}); 
-    driverObj.drive();
 
 
-    //write a function that detects if the user is on mobile
     function isMobile() {
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
-    // alert(isMobile())
-    // 
-
     if (isMobile()) {
       document.getElementById('mobile_warning').style.display = 'block';
+    } else { 
+
+      const driverObj = driver({
+        showProgress: true,
+        steps: [
+          {
+            element: '#googeldoc', popover: {
+              align: "center",
+              title: 'Instructions',
+              description: 'Continue writing the story where the last person left off. <br> <br> Dont like tutorials? Click the X to SKIP.',
+            }
+          },
+          { element: '#personalCounter', popover: { title: "story on amazon", description: 'After the timer runs out what is left will be compiled into a story on amazon!' } },
+          { element: '#rules', popover: { title: "Rules: IMPORTANT", description: '' } },
+          { element: '#googeldoc', popover: { title: "Want your name in the credit?", description: 'Scroll to end of story, and add your name under authors' } },
+
+          { element: '#personalCounter', popover: { title: "Clock is ticking! Get to writing!", description: '' } },
+        ]
+      });
+      driverObj.drive();
+
+
     }
+
   </script>
 
   <script>
+    
+    function updateProgressBar(elementId, percentage) {
+      console.log('updateProgressBar', elementId, percentage);
+  // Validate the percentage value
+  if (percentage < 0 || percentage > 100) {
+    console.error('Percentage must be between 0 and 100.');
+    return;
+  }
+
+  // Get the progress bar element
+  var progressBar = document.getElementById(elementId);
+  if (!progressBar) {
+    console.error('Progress bar element not found.');
+    return;
+  }
+
+  // Update the width and aria attributes
+  progressBar.style.width = percentage + '%';
+  progressBar.setAttribute('aria-valuenow', percentage);
+  progressBar.textContent = percentage + '%';
+}
+
 
     function time_remaining() {
       let time = new Date().getTime() / 1000
       return Math.floor(Math.abs(end_date - time))
     }
 
-    let end_date = 1723791600; //08/16/2024 12:00:00 AM
+
+    let end_date = 1723662737; //08/16/2024 12:00:00 AM
+    let start_date = 1723576337;
     // create a function that updates  id=personalCounter the epoch_date every second using format DD:HH:MM:SS counts down from 48 hours
     let element = document.getElementById('personalCounter');
     // element.innerHTML = "workds"
@@ -88,86 +130,108 @@ const driverObj = driver({
       epoch_date = time_remaining()
 
       // formate epoch_date as DD:HH:MM:SS 
+      let days = Math.floor(epoch_date / (60 * 60 * 24)).toString().padStart(2, "0");
       let hours = Math.floor((epoch_date % (60 * 60 * 24)) / (60 * 60)).toString().padStart(2, "0");
       let minutes = Math.floor((epoch_date % (60 * 60)) / 60).toString().padStart(2, "0");
       let seconds = Math.floor((epoch_date % 60) / 1).toString().padStart(2, "0");
       // return 
       let element = document.getElementById('personalCounter');
 
-      element.innerHTML = ` Time Remaining ${hours}:${minutes}:${seconds}`//convert_epoch_to_date(epoch_date)
+      element.innerHTML = ` Time Remaining ${days} Days: ${hours}:${minutes}:${seconds}`//convert_epoch_to_date(epoch_date)
+
+      // update progress bar
+      // updateProgressBar('current_progress', 70)
+      //rewrite this to be time rimaining current time, starting point is 1723576337, end point it 1724179722, calculate the percentage curernt time is between start and end
+      let percentage = ((epoch_date / (end_date -start_date )) * 100)
+      percentage = Math.abs(100 - percentage)
+      updateProgressBar('current_progress', percentage)
+
     }, 1000)
 
   </script>
-  <title>Internet Writes a Book</title>
+  <title>Internet Writes a story</title>
 
 </head>
 
-<body class="confetti" >
+<body class="confetti">
   <!-- set mobile_warning to display none -->
- <div id="mobile_warning" style="display: none;">
-  <!-- display "Looks like your on mobile, click here to get started https://docs.google.com/document/d/1Nk6T-ZpnVdbRhOD6yWt3A5eKliJUwhvhI8o8E2OYQuc/edit?usp=sharing" -->
-  <div class="alert alert-warning" role="alert">
-    Unfortunately, our document doesn't work on mobile. As a workaround, click this link <a href="https://docs.google.com/document/d/1Nk6T-ZpnVdbRhOD6yWt3A5eKliJUwhvhI8o8E2OYQuc/edit?usp=sharing">here</a> then click ✏️ to edit to get started. 
+  <div id="mobile_warning" style="display: none;    background: purple;">
+    <!-- display "Looks like your on mobile, click here to get started https://docs.google.com/document/d/1Nk6T-ZpnVdbRhOD6yWt3A5eKliJUwhvhI8o8E2OYQuc/edit?usp=sharing" -->
+    <h1 class="" role="">
+      Unfortunately 🫤, Editing on mobile📱 doesnt work. As a workaround🔨, 
+      <br>click this link <a style="font-size: xx-large;"
+        href="https://docs.google.com/document/d/1Nk6T-ZpnVdbRhOD6yWt3A5eKliJUwhvhI8o8E2OYQuc/edit?usp=sharing">HERE</a>
+      then click ✏️ to edit to get started 😊. 
 
-</div>
-</div>
-
-  <!-- <div class="container text-center"> -->
-  <!-- create a bootstrap  grid  with two rows, first row stacked center aligned title "One Million Letter Book", and sub heading "(Typing a letter shows for everyone!)", second row flush ends :left "made with ❤️ By oran C", and right counter "1,000,000 letter so far"  :right "you have typed 1000 letters"-->
-  <div class="row" >
-    <div class="col text-center">
-      <h1>Internet Writes a Book</h1>
-      <!-- <h4 id="amazon">Become a published author! Final draft gets published to <img src="amazon-logo.jpg" alt="Amazon Logo"
-          width="25" height="24"> amazon.com </h4> -->
-          <h4> Become a Published Author: Your Words, this Book, Published on Amazon <img src="amazon-logo.jpg" alt="Amazon Logo"
-            width="25" height="24">  after the timer runs out!</h4>
-<hr>
-  
-    <h3 id="personalCounter" data-toggle="tooltip" title="This shows the time remaining"> Time Remaining Loading.. </h3>
-    <p>The goal write a one million word book.</p>
-
-    <!-- create a iframe of this link https://docs.google.com/document/d/1Nk6T-ZpnVdbRhOD6yWt3A5eKliJUwhvhI8o8E2OYQuc/edit?usp=sharing -->
-    <iframe 
-      src="https://docs.google.com/document/d/1Nk6T-ZpnVdbRhOD6yWt3A5eKliJUwhvhI8o8E2OYQuc/edit?usp=sharing"
-      width="100%" height="2000px"></iframe>
-
-  </div>
-
-
-  </div>
-  <footer class="text-center">
-    <div class="container" id="rules">
-      <div class="row" >
-        <div class="col text-left" >
-          
-          <h3>DO:</h1>
-            <h5  i>Add to the story, be creative, fix spelling errors, comment helpfully </h5>
-          </div>
-          <div class="col text-right" >
-            <h5>DONT:</h5>
-            <h5 >Dont delete pervious words, NO images 🖼️,be mean, or spam</h5>
-        </div>
-      </div>
-      <div class="row">
-        
-        <div class="col">
-          <p>Made with 🌮's by <a href="https://oransblog.com/">oran C</a></p>
-
-    <div style="opacity: 0.5; font-size: xx-small;"> fonts used: <a href="https://www.onlinewebfonts.com/icon"
-        style="font-size: xx-small;">Apercu Pro Bold</a>, <a
-        href="https://www.dafontfree.net/sunset-demibold-regular-font/f23705.htm" style="font-size: xx-small;">sunset
-        demibold</a>  Report a bug to <a href="mailto:contact@internetwritesastory.com" style="font-size: xx-small;">contact@internetwritesastory.com</a>, inspired by  <a href="https://onemillioncheckboxes.com/" style="font-size: xx-small;" >onemillioncheckboxes.com</a></div>
-
+    </h1>
     <hr>
-          <p> project not assosiated with amazon.</p>
-          <a href="https://www.buymeacoffee.com/oran" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+  </div>
+  <div id="not_work_on_mobile">
+    <!-- <div class="container text-center"> -->
+    <!-- create a bootstrap  grid  with two rows, first row stacked center aligned title "One Million Letter story", and sub heading "(Typing a letter shows for everyone!)", second row flush ends :left "made with ❤️ By oran C", and right counter "1,000,000 letter so far"  :right "you have typed 1000 letters"-->
+    <div class="row">
+      <div class="col text-center">
+        <h1>Internet Writes a Story</h1>
+        <!-- <h4 id="amazon">Become a published author! Final draft gets published to <img src="amazon-logo.jpg" alt="Amazon Logo"
+          width="25" height="24"> amazon.com </h4> -->
+        <h4> Become a Published Author: Your Words, this story, Published on Amazon <img src="amazon-logo.jpg"
+            alt="Amazon Logo" width="25" height="24"> as a 📖 after the timer runs out!</h4>
+        <hr>
+
+        <h3 id="personalCounter" data-toggle="tooltip" title="This shows the time remaining"> Time Remaining Loading..
+        </h3>
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="current_progress" style="width: 1%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+        </div>
+                
+        <p>The goal write a one million word story.</p>
+
+        <!-- create a iframe of this link https://docs.google.com/document/d/1Nk6T-ZpnVdbRhOD6yWt3A5eKliJUwhvhI8o8E2OYQuc/edit?usp=sharing -->
+        <iframe src="https://docs.google.com/document/d/1Nk6T-ZpnVdbRhOD6yWt3A5eKliJUwhvhI8o8E2OYQuc/edit?usp=sharing"
+          width="100%" height="2000px"></iframe>
+
+      </div>
+
+
+    </div>
+    <footer class="text-center">
+      <div class="container" id="rules">
+        <div class="row">
+          <div class="col text-left">
+
+            <h3>DO:</h1>
+              <h5 i>Add to the story, be creative, fix spelling errors, comment helpfully </h5>
+          </div>
+          <div class="col text-right">
+            <h5>DONT:</h5>
+            <h5>Dont delete pervious words, NO images 🖼️,be mean, or spam</h5>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col">
+            <p>Made with 🌮's by <a href="https://oransblog.com/">oran C</a></p>
+
+            <div style="opacity: 0.5; font-size: xx-small;"> fonts used: <a href="https://www.onlinewebfonts.com/icon"
+                style="font-size: xx-small;">Apercu Pro Bold</a>, <a
+                href="https://www.dafontfree.net/sunset-demibold-regular-font/f23705.htm"
+                style="font-size: xx-small;">sunset
+                demibold</a> Report a bug to <a href="mailto:contact@internetwritesastory.com"
+                style="font-size: xx-small;">contact@internetwritesastory.com</a>, inspired by <a
+                href="https://onemillioncheckboxes.com/" style="font-size: xx-small;">onemillioncheckboxes.com</a></div>
+
+            <hr>
+            <p> project not assosiated with amazon.</p>
+            <a href="https://www.buymeacoffee.com/oran" target="_blank"><img
+                src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee"
+                style="height: 60px !important;width: 217px !important;"></a>
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 
-        
- 
+  </div>
+
 </body>
 
 </html>
