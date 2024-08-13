@@ -101,6 +101,9 @@
     return;
   }
 
+    if(percentage ==0){
+      percentage = 1;
+    }
   // Update the width and aria attributes
   progressBar.style.width = percentage + '%';
   progressBar.setAttribute('aria-valuenow', percentage);
@@ -114,7 +117,7 @@
     }
 
 
-    let end_date = 1723662737; //08/16/2024 12:00:00 AM
+    let end_date   = 1724179722; //08/16/2024 12:00:00 AM
     let start_date = 1723576337;
     // create a function that updates  id=personalCounter the epoch_date every second using format DD:HH:MM:SS counts down from 48 hours
     let element = document.getElementById('personalCounter');
@@ -142,9 +145,10 @@
       // update progress bar
       // updateProgressBar('current_progress', 70)
       //rewrite this to be time rimaining current time, starting point is 1723576337, end point it 1724179722, calculate the percentage curernt time is between start and end
-      let percentage = ((epoch_date / (end_date -start_date )) * 100)
+      let percentage = Math.ceil((epoch_date / (end_date -start_date )) * 100)
+      //invert
       percentage = Math.abs(100 - percentage)
-      updateProgressBar('current_progress', percentage)
+       updateProgressBar('current_progress', percentage)
 
     }, 1000)
 
